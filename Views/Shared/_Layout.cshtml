@@ -11,7 +11,7 @@
     <script src="~/lib/jQuery-slideshow-plugin/plugin.js"></script>
     <link rel="stylesheet" type="text/css" href="~/lib/jQuery-slideshow-plugin/plugin.css">
     <script src="~/js/main.js"></script>
-    <title>@ViewData["Title"]</title>
+    <title>@ViewBag.Title</title>
 </head>
 <body>
     <header>
@@ -19,25 +19,25 @@
             <nav>
                 <a class="nav-item" href="/Home/Index">Главная</a>
                 <div class="dropdown" id="dropdown">
-                    <a class="dropdown-link nav-item" href="" id="dropd">О нас</a>
+                    <a class="dropdown-link nav-item" id="dropd">О нас</a>
                     <ul class="dropdown-menu" id="myDropdown">
                         <li>
-                            <a class="dropdown-submenu nav-item" href="./restaurants.html">Рестораны</a>
+                            <a class="dropdown-submenu nav-item" href="/About/Restaurants">Рестораны</a>
                         </li>
                         <li>
-                            <a class="dropdown-submenu nav-item" href="./service.html">Обслуживание</a>
+                            <a class="dropdown-submenu nav-item" href="/About/Service">Обслуживание</a>
                         </li>
                         <li>
-                            <a class="dropdown-submenu nav-item" href="./contact.html">Контакты</a>
+                            <a class="dropdown-submenu nav-item" href="/About/Contact">Контакты</a>
                         </li>
                         <li>
-                            <a class="dropdown-submenu nav-item" href="./awards.html">Награды</a>
+                            <a class="dropdown-submenu nav-item" href="/About/Awards">Награды</a>
                         </li>
                         <li>
-                            <a class="dropdown-submenu nav-item" href="./staff.html">Персонал</a>
+                            <a class="dropdown-submenu nav-item" href="/About/Staff">Персонал</a>
                         </li>
                         <li>
-                            <a class="dropdown-submenu nav-item" href="./reviews.html">Отзывы</a>
+                            <a class="dropdown-submenu nav-item" href="/About/Reviews">Отзывы</a>
                         </li>
                     </ul>
                 </div>
@@ -52,7 +52,7 @@
     <section class="page-head" data-overlay>
         <div class="container">
             <div class="row text-center text-title">
-                <h2>@ViewData["Page"]</h2>
+                <h2>@ViewBag.Title</h2>
             </div>
         </div>
     </section>
@@ -63,22 +63,22 @@
                 <h3>О нас:</h3>
                 <ul>
                     <li>
-                        <a href="./restaurants.html">Рестораны</a>
+                        <a href="/About/Restaurants">Рестораны</a>
                     </li>
                     <li>
-                        <a href="./service.html">Обслуживание</a>
+                        <a href="/About/Service">Обслуживание</a>
                     </li>
                     <li>
-                        <a href="./contact.html">Контакты</a>
+                        <a href="/About/Contact">Контакты</a>
                     </li>
                     <li>
-                        <a href="./awards.html">Награды</a>
+                        <a href="/About/Awards">Награды</a>
                     </li>
                     <li>
-                        <a href="./staff.html">Персонал</a>
+                        <a href="/About/Staff">Персонал</a>
                     </li>
                     <li>
-                        <a href="./reviews.html">Отзывы</a>
+                        <a href="/About/Reviews">Отзывы</a>
                     </li>
                 </ul>
             </div>
