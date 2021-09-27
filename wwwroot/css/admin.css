@@ -1,0 +1,171 @@
+body {
+    background: #ccc;
+}
+
+.nav-container {
+    flex-grow: 1;
+    align-items: center !important;
+}
+
+header nav {
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+}
+
+header nav ul li {
+    display: inline-block;
+    padding: 10px;
+}
+
+header nav ul li a {
+    font-size: 20px;
+    color: #000;
+    text-decoration: none;
+    padding: 10px;
+    background: #bbb;
+    transition: .3s;
+}
+
+header nav ul li a:hover {
+    background: #ddd;
+}
+
+.title {
+    text-align: center;
+    color: red;
+    text-transform: uppercase;
+}
+
+.container {
+    margin: 20px auto;
+    width: 80%;
+    background: #ddd;
+    padding: 20px 10px;
+    border: 1px solid #000;
+}
+
+.row {
+    display:flex;
+    padding: 5px 0;
+}
+
+.col-2 {
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.col-6 {
+    -ms-flex: 0 0 75%;
+    flex: 0 0 75%;
+    max-width: 75%;
+}
+
+.col-2, .col-6 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+label {
+    float:right;
+}
+
+input {
+    width: 70%;
+}
+
+button {
+    margin: 0 auto;
+    padding: 10px;
+    cursor:pointer;
+}
+
+h3 {
+    margin: 0 auto;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+}
+
+.list {
+    width: 100%;
+    margin: 0 auto;
+    color: #000000;
+    vertical-align: top;
+    border-color: #dee2e6;
+    border-collapse: collapse;
+    background:rgb(200, 200, 200);
+}
+
+thead {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+    text-align: center;
+    background-color: #000 !important;
+    color: #fff;
+}
+
+td,th {
+    border: 1px solid #ffffff85;
+    text-align: center;
+    padding: 10px;
+}
+
+th {
+    font-size: 20px;
+}
+
+td a, .button {
+    text-decoration: none;
+    padding: 10px;
+    color: #000;
+    background: #ddd;
+    border: 1px solid rgb(128 128 128);
+    cursor: pointer;
+}
+
+td a:hover, .button:hover {
+    background: #eee;
+}
+
+td img {
+    height: 50px;
+    width: 50px;
+}
+
+.text-center a {
+    padding: 0 5px;
+    font-size: 20px;
+}
+
+.text-center {
+    margin: 0 auto;
+    text-align: center;
+    float: none;
+    width: 100%;
+    display: block;
+}
+
+.active {
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+.hide {
+    display: none;
+}
+
+.hide-list {
+    position: absolute;
+    background: #000000;
+    z-index: 5;
+    width: 480px;
+    max-height: 155px;
+    right: 16.8%;
+    overflow: auto;
+    color: #fff;
+    display: none;
+}

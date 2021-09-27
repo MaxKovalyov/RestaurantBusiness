@@ -14,6 +14,13 @@ namespace RestaurantBusiness.Controllers
 
         }
 
+        public ViewResult Index()
+        {
+            ViewData["Title"] = "Главная страница";
+            ViewData["Page"] = "Главная";
+            return View();
+        }
+
 
     }
 }
