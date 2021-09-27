@@ -10,6 +10,14 @@ namespace RestaurantBusiness.Controllers
             return View();
         }
 
+        [Route("/Admin/About/EditRestaurants")]
+        public IActionResult EditRestaurants()
+        {
+            ViewBag.Admin = true;
+            ViewBag.Title = "Редактирование ресторанов";
+            return View();
+        }
+
         public IActionResult Service()
         {
             ViewBag.Title = "Обслуживание";
@@ -37,6 +45,14 @@ namespace RestaurantBusiness.Controllers
         public IActionResult Reviews()
         {
             ViewBag.Title = "Отзывы";
+            return View();
+        }
+
+        [Route("/Admin/About/EditReviews")]
+        public IActionResult EditReviews()
+        {
+            ViewBag.Admin = true;
+            ViewBag.Title = "Редактирование отзывов";
             return View();
         }
     }

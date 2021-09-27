@@ -1,0 +1,100 @@
+﻿<div class="container">
+    <form action="" method="POST" id="form" enctype="multipart/form-data">
+        <div class="row">
+            <h3>Добавление/редактирование блюда</h3>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="name">Название блюда</label>
+            </div>
+            <div class="col-6">
+                <input required id="name" type="text" name="name">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="img">Фотография блюда</label>
+            </div>
+            <div class="col-6">
+                <input required id="img" type="file" name="img" accept="image/*">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="cost">Стоимость блюда</label>
+            </div>
+            <div class="col-6">
+                <input required id="cost" type="text" name="cost">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="cost">Категория блюда</label>
+            </div>
+            <div class="col-6">
+                <select class="input-select" name="category" id="category">
+                    <option disabled selected>Выберите категорию</option>
+                    <option value="Первое блюдо">Первое блюдо</option>
+                    <option value="Второе блюдо">Второе блюдо</option>
+                    <option value="Закуски">Закуски</option>
+                    <option value="Напитки">Напитки</option>
+                    <option value="Десерты">Десерты</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="">Отправить</button>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <div class="row">
+        <h3>Список блюд</h3>
+    </div>
+    <div class="row">
+        <table class="list">
+            <thead>
+                <tr>
+                    <th>Картинка</th>
+                    <th>Название</th>
+                    <th>Стоимость</th>
+                    <th>Категория</th>
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="img"><img src="/images/Products/snack1.jpg" alt=""></td>
+                    <td id="name">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                    <td id="cost">650</td>
+                    <td id="category">Закуски</td>
+                    <td><a onclick="editMenu.call(this)">Изменить</a></td>
+                    <td><a onclick="removeMenu.call(this)">Удалить</a></td>
+                </tr>
+                <tr>
+                    <td id="img"><img src="/images/Products/second3.jpg" alt=""></td>
+                    <td id="name">Минестроне с фрегола сарда</td>
+                    <td id="cost">650</td>
+                    <td id="category">Первое блюдо</td>
+                    <td><a onclick="editMenu.call(this)">Изменить</a></td>
+                    <td><a onclick="removeMenu.call(this)">Удалить</a></td>
+                </tr>
+                <tr>
+                    <td id="img"><img src="/images/Products/drink3.jpg" alt=""></td>
+                    <td id="name">Сицилийский рыбный суп</td>
+                    <td id="cost">2000</td>
+                    <td id="category">Второе блюдо</td>
+                    <td><a onclick="editMenu.call(this)">Изменить</a></td>
+                    <td><a onclick="removeMenu.call(this)">Удалить</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row text-center">
+        <a class="active">1</a>
+        <a href="">2</a>
+        <a href="">3</a>
+        <a href="">4</a>
+    </div>
+</div>

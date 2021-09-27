@@ -1,0 +1,80 @@
+﻿<div class="container">
+    <form action="" method="POST" id="form">
+        <div class="row">
+            <h3>Создание/редактирование новости</h3>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="date">Дата публикации</label>
+            </div>
+            <div class="col-6">
+                <input required id="date" type="text" name="date" value="2021-09-20">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="description">Краткое описание</label>
+            </div>
+            <div class="col-6">
+                <input required id="description" type="text" name="description">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="content">Содержимое новости</label>
+            </div>
+            <div class="col-6">
+                <textarea required id="content" name="content" cols="100" rows="10"></textarea>
+                <script type="text/javascript">
+                            CKEDITOR.replace('content');
+                </script>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="">Отправить</button>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <div class="row">
+        <h3>Список новостей</h3>
+    </div>
+    <div class="row">
+        <table class="list">
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Заголовок</th>
+                    <th>Содержание</th>
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="date">2021-09-20</td>
+                    <td id="description">Новое главное блюдо</td>
+                    <td id="content">
+                        Добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо
+                        Добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо
+                    </td>
+                    <td><a onclick="editNews.call(this)">Изменить</a></td>
+                    <td><a onclick="removeNews.call(this)">Удалить</a></td>
+                </tr>
+                <tr>
+                    <td id="date">2021-09-18</td>
+                    <td id="description">Открытие нового ресторана</td>
+                    <td id="content">Открытие нового ресторана, открытие нового ресторана, открытие нового ресторана, открытие нового ресторана, открытие нового ресторана, открытие нового ресторана</td>
+                    <td><a onclick="editNews.call(this)">Изменить</a></td>
+                    <td><a onclick="removeNews.call(this)">Удалить</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row text-center">
+        <a class="active">1</a>
+        <a href="">2</a>
+        <a href="">3</a>
+        <a href="">4</a>
+    </div>
+</div>

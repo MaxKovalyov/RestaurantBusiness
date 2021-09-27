@@ -15,6 +15,14 @@ namespace RestaurantBusiness.Controllers
             return View();
         }
 
+        [Route("/Admin/Home/EditNews")]
+        public IActionResult EditNews()
+        {
+            ViewBag.Admin = true;
+            ViewBag.Title = "Редактирование новостей";
+            return View();
+        }
+
 
     }
 }

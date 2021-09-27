@@ -9,5 +9,21 @@ namespace RestaurantBusiness.Controllers
             ViewBag.Title = "Меню";
             return View();
         }
+
+        [Route("/Admin/Menu/EditCategories")]
+        public IActionResult EditCategories()
+        {
+            ViewBag.Admin = true;
+            ViewBag.Title = "Редактирование категорий";
+            return View();
+        }
+
+        [Route("/Admin/Menu/EditProducts")]
+        public IActionResult EditProducts()
+        {
+            ViewBag.Admin = true;
+            ViewBag.Title = "Редактирование блюд";
+            return View();
+        }
     }
 }

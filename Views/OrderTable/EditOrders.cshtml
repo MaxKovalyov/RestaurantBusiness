@@ -1,0 +1,125 @@
+﻿<div class="container">
+    <form action="" method="POST" id="form" enctype="multipart/form-data">
+        <div class="row">
+            <h3>Редактирование заказа столика</h3>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="restaurant">Ресторан</label>
+            </div>
+            <div class="col-6">
+                <select class="input-select" name="restaurant" id="restaurant">
+                    <option disabled selected>Выберите ресторан</option>
+                    <option value="Мрия">Мрия</option>
+                    <option value="Бонжур">Бонжур</option>
+                    <option value="Пиколлино">Пиколлино</option>
+                    <option value="Алькабарено">Алькабарено</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="date">Дата заказа</label>
+            </div>
+            <div class="col-6">
+                <input required id="date" type="text" name="date">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="fio">ФИО заказчика</label>
+            </div>
+            <div class="col-6">
+                <input required id="fio" type="text" name="fio">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="phone">Телефон заказчика</label>
+            </div>
+            <div class="col-6">
+                <input required id="phone" type="text" name="phone">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="guests">Количество гостей</label>
+            </div>
+            <div class="col-6">
+                <input required id="guests" type="text" name="guests">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="content">Подробности заказа</label>
+            </div>
+            <div class="col-6">
+                <textarea required id="content" name="content" cols="100" rows="10"></textarea>
+                <script type="text/javascript">
+                            CKEDITOR.replace('content');
+                </script>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="">Отправить</button>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <div class="row">
+        <h3>Список заказов столика</h3>
+    </div>
+    <div class="row">
+        <table class="list">
+            <thead>
+                <tr>
+                    <th>Ресторан</th>
+                    <th>Дата заказа</th>
+                    <th>ФИО заказчика</th>
+                    <th>Номер телефона</th>
+                    <th>Кол-во гостей</th>
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="restaurant">Алькабарено</td>
+                    <td id="date">2021-09-20</td>
+                    <td id="fio">Карпов Виктор Сергеевич</td>
+                    <td id="phone">+79787564888</td>
+                    <td id="guests">3</td>
+                    <td><a onclick="editTableOrder.call(this)">Изменить</a></td>
+                    <td><a onclick="removeTableOrder.call(this)">Удалить</a></td>
+                    <td id="content" class="hide">Хочу того-то и этого и того и опять этого, всего хочу и дёшево</td>
+                </tr>
+                <tr>
+                    <td id="restaurant">Алькабарено</td>
+                    <td id="date">2021-09-20</td>
+                    <td id="fio">Карпов Виктор Сергеевич</td>
+                    <td id="phone">+79787564888</td>
+                    <td id="guests">1</td>
+                    <td><a onclick="editTableOrder.call(this)">Изменить</a></td>
+                    <td><a onclick="removeTableOrder.call(this)">Удалить</a></td>
+                    <td id="content" class="hide">Хочу того-то и этого и того и опять этого, всего хочу и дёшево</td>
+                </tr>
+                <tr>
+                    <td id="restaurant">Алькабарено</td>
+                    <td id="date">2021-09-20</td>
+                    <td id="fio">Карпов Виктор Сергеевич</td>
+                    <td id="phone">+79787564888</td>
+                    <td id="guests">2</td>
+                    <td><a onclick="editTableOrder.call(this)">Изменить</a></td>
+                    <td><a onclick="removeTableOrder.call(this)">Удалить</a></td>
+                    <td id="content" class="hide">Хочу того-то и этого и того и опять этого, всего хочу и дёшево</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row text-center">
+        <a class="active">1</a>
+        <a href="">2</a>
+        <a href="">3</a>
+        <a href="">4</a>
+    </div>
+</div>

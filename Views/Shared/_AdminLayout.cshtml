@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="~/css/admin.css">
+    <script type="text/javascript" src="~/js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="~/lib/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="~/js/admin.js"></script>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <nav>
+                <ul>
+                    <li><a href="/Admin/Home/EditNews">Новости</a></li>
+                    <li><a href="/Admin/Menu/EditCategories">Категории</a></li>
+                    <li><a href="/Admin/Menu/EditProducts">Меню</a></li>
+                    <li><a href="/Admin/About/EditRestaurants">Рестораны</a></li>
+                    <li><a href="/Admin/About/EditReviews">Отзывы</a></li>
+                    <li><a href="/Admin/OrderTable/EditOrders">Столики</a></li>
+                    <li><a href="/Admin/OrderEvent/EditOrders">Мероприятия</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="edit-container">
+        <div class="title">
+            <h1>@ViewBag.Title</h1>
+        </div>
+        @RenderBody()
+    </section>
+</body>
+</html>

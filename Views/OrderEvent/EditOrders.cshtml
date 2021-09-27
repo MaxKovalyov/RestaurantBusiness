@@ -1,0 +1,231 @@
+﻿<div class="container">
+    <form action="" method="POST" id="form" enctype="multipart/form-data">
+        <div class="row">
+            <h3>Редактирование заказа мероприятия</h3>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="restaurant">Ресторан</label>
+            </div>
+            <div class="col-6">
+                <select class="input-select" name="restaurant" id="restaurant">
+                    <option disabled selected>Выберите ресторан</option>
+                    <option value="Мрия">Мрия</option>
+                    <option value="Бонжур">Бонжур</option>
+                    <option value="Пиколлино">Пиколлино</option>
+                    <option value="Алькабарено">Алькабарено</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="date">Дата заказа</label>
+            </div>
+            <div class="col-6">
+                <input required id="date" type="text" name="date">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="fio">ФИО заказчика</label>
+            </div>
+            <div class="col-6">
+                <input required id="fio" type="text" name="fio">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="phone">Телефон заказчика</label>
+            </div>
+            <div class="col-6">
+                <input required id="phone" type="text" name="phone">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="guests">Количество гостей</label>
+            </div>
+            <div class="col-6">
+                <input required id="guests" type="text" name="guests">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="cost">Стоимость заказа</label>
+            </div>
+            <div class="col-6">
+                <input required id="cost" type="text" name="cost" disabled value="0">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label for="content">Подробности заказа</label>
+            </div>
+            <div class="col-6">
+                <textarea required id="content" name="content" cols="100" rows="10"></textarea>
+                <script type="text/javascript">
+                            CKEDITOR.replace('content');
+                </script>
+            </div>
+        </div>
+        <div class="row text-center">
+            <h3>Список блюд</h3>
+            <table id="product-list" class="list">
+                <thead>
+                    <tr>
+                        <th>Фотография</th>
+                        <th>Название</th>
+                        <th>Стоимость</th>
+                        <th>Удалить</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="row">
+            <button type="submit" class="">Отправить</button>
+            <a class="button" id="show-list-products" onclick="showListProducts()">Добавить блюдо</a>
+            <div class="hide-list" id="hide-list">
+                <table>
+                    <tr>
+                        <td id="product-img"><img src="/images/Products/first1.jpg" alt=""></td>
+                        <td id="product-title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                        <td id="product-cost">650</td>
+                        <td><a onclick="addProductOrder.call(this)">Добавить</a></td>
+                    </tr>
+                    <tr>
+                        <td id="product-img"><img src="/images/Products/first1.jpg" alt=""></td>
+                        <td id="product-title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                        <td id="product-cost">650</td>
+                        <td><a onclick="addProductOrder.call(this)">Добавить</a></td>
+                    </tr>
+                    <tr>
+                        <td id="product-img"><img src="/images/Products/first1.jpg" alt=""></td>
+                        <td id="product-title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                        <td id="product-cost">650</td>
+                        <td><a onclick="addProductOrder.call(this)">Добавить</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <div class="row">
+        <h3>Список заказов столика</h3>
+    </div>
+    <div class="row">
+        <table class="list">
+            <thead>
+                <tr>
+                    <th>Ресторан</th>
+                    <th>Дата заказа</th>
+                    <th>ФИО заказчика</th>
+                    <th>Номер телефона</th>
+                    <th>Кол-во гостей</th>
+                    <th>Стоимость</th>
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="restaurant">Алькабарено</td>
+                    <td id="date">2021-09-20</td>
+                    <td id="fio">Карпов Виктор Сергеевич</td>
+                    <td id="phone">+79787564888</td>
+                    <td id="guests">3</td>
+                    <td id="cost">7500</td>
+                    <td><a onclick="editEventOrder.call(this)">Изменить</a></td>
+                    <td><a onclick="removeEventOrder.call(this)">Удалить</a></td>
+                    <td id="content" class="hide">Хочу того-то и этого и того и опять этого, всего хочу и дёшево</td>
+                    <td id="products" class="hide">
+                        <table>
+                            <tr>
+                                <td class="product-img"><img src="/images/Products/first1.jpg" alt=""></td>
+                                <td class="product-title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                                <td class="product-cost">650</td>
+                            </tr>
+                            <tr>
+                                <td class="product-img"><img src="/images/Products/first1.jpg" alt=""></td>
+                                <td class="product-title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                                <td class="product-cost">650</td>
+                            </tr>
+                            <tr>
+                                <td class="product-img"><img src="/images/Products/first1.jpg" alt=""></td>
+                                <td class="product-title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                                <td class="product-cost">650</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="restaurant">Алькабарено</td>
+                    <td id="date">2021-09-20</td>
+                    <td id="fio">Карпов Виктор Сергеевич</td>
+                    <td id="phone">+79787564888</td>
+                    <td id="guests">1</td>
+                    <td id="cost">7500</td>
+                    <td><a onclick="editEventOrder.call(this)">Изменить</a></td>
+                    <td><a onclick="removeEventOrder.call(this)">Удалить</a></td>
+                    <td id="content" class="hide">Хочу того-то и этого и того и опять этого, всего хочу и дёшево</td>
+                    <td id="products" class="hide">
+                        <table>
+                            <tr>
+                                <td class="product-img"><img src="/images/Products/first1.jpg" alt=""></td>
+                                <td class="product-title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                                <td class="product-cost">650</td>
+                            </tr>
+                            <tr>
+                                <td class="product-img"><img src="/images/Products/first1.jpg" alt=""></td>
+                                <td class="product-title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                                <td class="product-cost">650</td>
+                            </tr>
+                            <tr>
+                                <td class="product-img"><img src="/images/Products/first1.jpg" alt=""></td>
+                                <td class="product-title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                                <td class="product-cost">650</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="restaurant">Алькабарено</td>
+                    <td id="date">2021-09-20</td>
+                    <td id="fio">Карпов Виктор Сергеевич</td>
+                    <td id="phone">+79787564888</td>
+                    <td id="guests">2</td>
+                    <td id="cost">7500</td>
+                    <td><a onclick="editEventOrder.call(this)">Изменить</a></td>
+                    <td><a onclick="removeEventOrder.call(this)">Удалить</a></td>
+                    <td id="content" class="hide">Хочу того-то и этого и того и опять этого, всего хочу и дёшево</td>
+                    <td id="products" class="hide">
+                        <table>
+                            <tr>
+                                <td class="product-img"><img src="/images/Products/first1.jpg" alt=""></td>
+                                <td class="product-title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                                <td class="product-cost">650</td>
+                            </tr>
+                            <tr>
+                                <td class="product-img"><img src="/images/Products/first1.jpg" alt=""></td>
+                                <td class="product-title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                                <td class="product-cost">650</td>
+                            </tr>
+                            <tr>
+                                <td class="product-img"><img src="/images/Products/first1.jpg" alt=""></td>
+                                <td class="product-title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</td>
+                                <td class="product-cost">650</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row text-center">
+        <a class="active">1</a>
+        <a href="">2</a>
+        <a href="">3</a>
+        <a href="">4</a>
+    </div>
+</div>

@@ -9,5 +9,13 @@ namespace RestaurantBusiness.Controllers
             ViewBag.Title = "Заказ столика";
             return View();
         }
+
+        [Route("/Admin/OrderTable/EditOrders")]
+        public IActionResult EditOrders()
+        {
+            ViewBag.Admin = true;
+            ViewBag.Title = "Редактирование заказов столиков";
+            return View();
+        }
     }
 }
