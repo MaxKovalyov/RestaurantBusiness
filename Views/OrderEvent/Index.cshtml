@@ -1,0 +1,137 @@
+﻿<section id="form-event">
+    <div class="container">
+        <form action="/" method="POST" class="form-table">
+            <h3>Заполните форму</h3>
+            <div class="row-form">
+                <div class="col-md-12">
+                    <select class="input-select" name="restaurant" id="restaurant">
+                        <option disabled selected>Выберите ресторан</option>
+                        <option value="Мрия">Мрия г. Москва, ул. Дурова, д.14</option>
+                        <option value="Бонжур">Бонжур г. Москва, ул. Орджоникидзе, д.1</option>
+                        <option value="Пиколлино">Пиколлино г. Москва, Москва-Сити</option>
+                        <option value="Алькабарено">Алькабарено г. Москва, ул. Тимура Фрунзе, д.22с4</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <input required placeholder="ФИО" type="text" class="input-text" name="fio">
+                </div>
+                <div class="col-md-6">
+                    <input required placeholder="Телефон" type="text" class="input-text" name="phone">
+                </div>
+                <div class="col-md-6">
+                    <input required placeholder="Количество гостей" type="text" class="input-text" name="guests" id="guests" onblur="costCalculation()">
+                </div>
+                <div class="col-md-6">
+                    <input required placeholder="Желаемая дата" type="date" class="input-text" name="date">
+                </div>
+                <div class="col-md-12">
+                    <textarea required placeholder="Подробное описание мероприятия и пожелания" name="description" cols="40" rows="5" class="input-textarea"></textarea>
+                </div>
+                <div class="col-md-6 text-center">
+                    <p class="label-cost">Стоимость мероприятия:</p>
+                </div>
+                <div class="col-md-6">
+                    <input class="input-text" name="cost-event" id="cost" type="text" disabled value="0">
+                </div>
+                <div class="col-md-12 in-row">
+                    <h4>Список блюд</h4>
+                    <a class="button button-show-list" id="show-product" onclick="showList()">Добавить блюдо</a>
+                    <div class="hide-list-products" id="hide-list">
+                        <div class="col-md-12 in-row">
+                            <div class="one-item min-product-img">
+                                <img src="/images/Products/first1.jpg" alt="">
+                            </div>
+                            <div class="one-item product-description">
+                                <p id="title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</p>
+                            </div>
+                            <div class="one-item text-center product-cost-min">
+                                <p id="cost-product-hide">650</p>
+                            </div>
+                            <div class="one-item text-center product-remove-btn">
+                                <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 in-row">
+                            <div class="one-item min-product-img">
+                                <img src="/images/Products/second2.jpg" alt="">
+                            </div>
+                            <div class="one-item product-description">
+                                <p id="title">Вителло тоннато</p>
+                            </div>
+                            <div class="one-item text-center product-cost-min">
+                                <p id="cost-product-hide">1200</p>
+                            </div>
+                            <div class="one-item text-center product-remove-btn">
+                                <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 in-row">
+                            <div class="one-item min-product-img">
+                                <img src="/images/Products/first1.jpg" alt="">
+                            </div>
+                            <div class="one-item product-description">
+                                <p id="title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</p>
+                            </div>
+                            <div class="one-item text-center product-cost-min">
+                                <p id="cost-product-hide">650</p>
+                            </div>
+                            <div class="one-item text-center product-remove-btn">
+                                <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 in-row">
+                            <div class="one-item min-product-img">
+                                <img src="/images/Products/second2.jpg" alt="">
+                            </div>
+                            <div class="one-item product-description">
+                                <p id="title">Вителло тоннато</p>
+                            </div>
+                            <div class="one-item text-center product-cost-min">
+                                <p id="cost-product-hide">1200</p>
+                            </div>
+                            <div class="one-item text-center product-remove-btn">
+                                <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 in-row">
+                            <div class="one-item min-product-img">
+                                <img src="/images/Products/first1.jpg" alt="">
+                            </div>
+                            <div class="one-item product-description">
+                                <p id="title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</p>
+                            </div>
+                            <div class="one-item text-center product-cost-min">
+                                <p id="cost-product-hide">650</p>
+                            </div>
+                            <div class="one-item text-center product-remove-btn">
+                                <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 in-row">
+                            <div class="one-item min-product-img">
+                                <img src="/images/Products/second2.jpg" alt="">
+                            </div>
+                            <div class="one-item product-description">
+                                <p id="title">Вителло тоннато</p>
+                            </div>
+                            <div class="one-item text-center product-cost-min">
+                                <p id="cost-product-hide">1200</p>
+                            </div>
+                            <div class="one-item text-center product-remove-btn">
+                                <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="product-list"></div>
+                <div class="col-12 text-center terms-container">
+                    <input id="terms" type="checkbox" required>
+                    <label for="terms"> Я согласен с условиями <a class="terms" href="https://www.law.ru/article/23093-politika-konfidentsialnosti-dlya-sayta">политики конфиденциальности</a></label>
+                </div>
+                <div class="col-12 text-center">
+                    <button class="button" type="submit" name="submit">Отправить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

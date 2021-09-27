@@ -1,0 +1,40 @@
+﻿<section id="form-table">
+    <div class="container">
+        <form action="/" method="POST" class="form-table">
+            <h3>Заполните форму</h3>
+            <div class="row-form">
+                <div class="col-md-12">
+                    <select class="input-select" name="restaurant" id="restaurant">
+                        <option disabled selected>Выберите ресторан</option>
+                        <option value="Мрия">Мрия г. Москва, ул. Дурова, д.14</option>
+                        <option value="Бонжур">Бонжур г. Москва, ул. Орджоникидзе, д.1</option>
+                        <option value="Пиколлино">Пиколлино г. Москва, Москва-Сити</option>
+                        <option value="Алькабарено">Алькабарено г. Москва, ул. Тимура Фрунзе, д.22с4</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <input required placeholder="ФИО" type="text" class="input-text" name="fio">
+                </div>
+                <div class="col-md-6">
+                    <input required placeholder="Телефон" type="text" class="input-text" name="phone">
+                </div>
+                <div class="col-md-6">
+                    <input required placeholder="Количество гостей" type="text" class="input-text" name="guests">
+                </div>
+                <div class="col-md-6">
+                    <input required placeholder="Желаемая дата" type="date" class="input-text" name="date">
+                </div>
+                <div class="col-md-12">
+                    <textarea required placeholder="Точное время и подробности о заказе" name="description" cols="40" rows="5" class="input-textarea"></textarea>
+                </div>
+                <div class="col-12 text-center terms-container">
+                    <input id="terms" type="checkbox" required>
+                    <label for="terms"> Я согласен с условиями <a class="terms" href="https://www.law.ru/article/23093-politika-konfidentsialnosti-dlya-sayta">политики конфиденциальности</a></label>
+                </div>
+                <div class="col-12 text-center">
+                    <button class="button" type="submit" name="submit">Отправить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
