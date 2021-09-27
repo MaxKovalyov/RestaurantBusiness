@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestaurantBusiness.Controllers
 {
@@ -10,6 +6,7 @@ namespace RestaurantBusiness.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Title = "Схема проезда";
             return View();
         }
     }
