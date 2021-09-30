@@ -6,14 +6,14 @@ namespace RestaurantBusiness.Models
 {
     public class EventProducts
     {
+        [ForeignKey("OrderEvent")]
         public Guid EventId { get; set; }
 
-        [ForeignKey(nameof(EventId))]
         public OrderEvent OrderEvent { get; set; }
 
+        [ForeignKey("Product")]
         public Guid ProductId { get; set; }
 
-        [ForeignKey(nameof(ProductId))]
-        public ICollection<Product> Products { get; set; }
+        public Product Product { get; set; }
     }
 }

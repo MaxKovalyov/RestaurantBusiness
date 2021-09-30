@@ -14,6 +14,15 @@ namespace RestaurantBusiness.App.Configurations
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
             builder.HasOne(p => p.Category);
+
+            builder.HasMany(p => p.EventProducts)
+                .WithOne(ep => ep.Product)
+                .HasForeignKey(ep => ep.ProductId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Product_EventProducts");
+
+            builder.Property(p => p.Cost)
+                .HasColumnType("decimal(18,4)");
         }
     }
 }

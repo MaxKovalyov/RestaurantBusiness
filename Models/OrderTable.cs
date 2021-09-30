@@ -7,6 +7,8 @@ namespace RestaurantBusiness.Models
     public class OrderTable: BaseModel
     {
         public DateTime Date { get; set; }
+
+        [Range(1,6, ErrorMessage = "Столик вмещает от 1 до 6 гостей")]
         public int CountGuest { get; set; }
         public string Description { get; set; }
 

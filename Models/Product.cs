@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,6 +19,8 @@ namespace RestaurantBusiness.Models
 
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }
+
+        public ICollection<EventProducts> EventProducts { get; set; }
 
     }
 }

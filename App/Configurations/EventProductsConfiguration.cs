@@ -12,7 +12,10 @@ namespace RestaurantBusiness.App.Configurations
 
             builder.HasOne(ep => ep.OrderEvent);
 
-            builder.HasMany(ep => ep.Products);
+            builder.HasOne(ep => ep.Product);
+
+            builder.HasKey(ep => ep.EventId);
+            builder.HasKey(ep => ep.ProductId);
 
         }
     }

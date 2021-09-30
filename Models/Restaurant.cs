@@ -10,6 +10,7 @@ namespace RestaurantBusiness.Models
 
         public string Image { get; set; }
 
+        [MaxLength(40, ErrorMessage = "Адрес не должен превышать 40 символов")]
         public string Adress { get; set; }
 
         public ICollection<OrderTable> TableOrders { get; set; }
