@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="App\Interfaces\" />
-    <Folder Include="App\Services\" />
     <Folder Include="App\Contracts\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\js\" />

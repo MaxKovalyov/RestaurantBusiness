@@ -15,10 +15,14 @@ function removeNews() {
 function editCategory() {
     let element = $(this).parent().parent();
     let category = $(element).find('#category').text();
+    let id = $(element).find('#id').text();
     $('#form').find('#category').val(category);
+    $('#form').find('#id').val(id);
 }
 
 function removeCategory() {
+    let id = $(this).parent().parent().find('#id').text();
+    $.get('DeleteCategory', { id: id });
     $(this).parent().parent().remove();
 }
 

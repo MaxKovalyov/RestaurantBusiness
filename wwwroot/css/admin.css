@@ -169,3 +169,7 @@ td img {
     color: #fff;
     display: none;
 }
+
+.error {
+    color: #dc3545 !important;
+}

@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RestaurantBusiness.App;
+using RestaurantBusiness.App.Repository;
+using RestaurantBusiness.App.Services;
 
 namespace RestaurantBusiness
 {
@@ -24,6 +26,9 @@ namespace RestaurantBusiness
         {
             services.AddDbContext<BaseDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationConnection")));
             services.AddScoped<DbContext>(s => s.GetRequiredService<BaseDbContext>());
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<ICategoryService, CategoryService>();
 
             services.AddMvcCore();
             services.AddControllersWithViews().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
