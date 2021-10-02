@@ -1,34 +1,37 @@
-﻿<div class="container">
-    <form action="" method="POST" id="form">
+﻿@model NewsViewModel
+<div class="container">
+    <form asp-action="EditNews" method="post" id="form">
         <div class="row">
             <h3>Создание/редактирование новости</h3>
         </div>
         <div class="row">
             <div class="col-2">
-                <label for="date">Дата публикации</label>
+                <label asp-for="OneNews.Date"></label>
             </div>
             <div class="col-6">
-                <input required id="date" type="text" name="date" value="2021-09-20">
+                <input required id="date" type="text" asp-for="OneNews.Date" value="@DateTime.Now.ToShortDateString()">
+                <span asp-validation-for="OneNews.Date" class="error"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-2">
-                <label for="description">Краткое описание</label>
+                <label asp-for="OneNews.Description"></label>
             </div>
             <div class="col-6">
-                <input required id="description" type="text" name="description">
+                <input required id="description" type="text" asp-for="OneNews.Description">
+                <span asp-validation-for="OneNews.Description" class="error"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-2">
-                <label for="content">Содержимое новости</label>
+                <label asp-for="OneNews.Content"></label>
             </div>
             <div class="col-6">
-                <textarea required id="content" name="content" cols="100" rows="10"></textarea>
-                <script type="text/javascript">
-                            CKEDITOR.replace('content');
-                </script>
+                <textarea id="content-editor" class="ckeditor" name="editor1" cols="80" rows="10"></textarea>
+                <a class="button" onclick="saveContent()">Сохранить содержимое</a>
             </div>
+            <input id="id" type="hidden" asp-for="OneNews.Id" value="11111111-1111-1111-1111-111111111111">
+            <textarea class="hide" id="content" asp-for="OneNews.Content"></textarea>
         </div>
         <div class="row">
             <button type="submit" class="">Отправить</button>
@@ -51,23 +54,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td id="date">2021-09-20</td>
-                    <td id="description">Новое главное блюдо</td>
-                    <td id="content">
-                        Добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо
-                        Добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо, добавлено новое блюдо
-                    </td>
-                    <td><a onclick="editNews.call(this)">Изменить</a></td>
-                    <td><a onclick="removeNews.call(this)">Удалить</a></td>
-                </tr>
-                <tr>
-                    <td id="date">2021-09-18</td>
-                    <td id="description">Открытие нового ресторана</td>
-                    <td id="content">Открытие нового ресторана, открытие нового ресторана, открытие нового ресторана, открытие нового ресторана, открытие нового ресторана, открытие нового ресторана</td>
-                    <td><a onclick="editNews.call(this)">Изменить</a></td>
-                    <td><a onclick="removeNews.call(this)">Удалить</a></td>
-                </tr>
+                @if (Model.News != null)
+                {
+                    foreach (var item in Model.News)
+                    {
+                        <tr>
+                            <td id="date">@item.Date</td>
+                            <td id="description">@item.Description</td>
+                            <td id="content">@item.Content</td>
+                            <td><a onclick="editNews.call(this)">Изменить</a></td>
+                            <td><a onclick="removeNews.call(this)">Удалить</a></td>
+                            <td class="hide" id="id">@item.Id</td>
+                        </tr>
+                    }
+                }
             </tbody>
         </table>
     </div>

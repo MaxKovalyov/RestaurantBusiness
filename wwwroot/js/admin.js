@@ -3,13 +3,23 @@ function editNews() {
     let date = $(element).find('#date').text();
     let description = $(element).find('#description').text();
     let content = $(element).find('#content').text();
+    let id = $(element).find('#id').text();
     $('#form').find('#date').val(date);
     $('#form').find('#description').val(description);
-    CKEDITOR.instances['content'].setData(content);
+    $('#form').find('#id').val(id);
+    CKEDITOR.instances['content-editor'].setData(content);
 }
 
 function removeNews() {
+    let id = $(this).parent().parent().find('#id').text();
+    $.get('DeleteNews', { id: id });
     $(this).parent().parent().remove();
+}
+
+function saveContent() {
+    let content = CKEDITOR.instances['content-editor'].getData();
+    content = content.replace(/<\/?[a-zA-Z]+>/gi, '');
+    $('#form').find('#content').text(content);
 }
 
 function editCategory() {
@@ -17,7 +27,7 @@ function editCategory() {
     let category = $(element).find('#category').text();
     let id = $(element).find('#id').text();
     $('#form').find('#category').val(category);
-    $('#form').find('#id').val(id);
+    
 }
 
 function removeCategory() {
