@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RestaurantBusiness.App.Services;
 using RestaurantBusiness.App.ViewModels;
+using RestaurantBusiness.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RestaurantBusiness.Controllers
@@ -9,10 +12,12 @@ namespace RestaurantBusiness.Controllers
     public class MenuController : Controller
     {
         private readonly ICategoryService _categoryService;
+        private readonly IProductService _productService;
 
-        public MenuController(ICategoryService categoryService)
+        public MenuController(ICategoryService categoryService, IProductService productService)
         {
             _categoryService = categoryService;
+            _productService = productService;
         }
 
         public IActionResult Index()
@@ -64,13 +69,50 @@ namespace RestaurantBusiness.Controllers
         }
 
         [Route("/Admin/Menu/EditProducts")]
-        public IActionResult EditProducts()
+        public async Task<IActionResult> EditProducts()
         {
             ViewBag.Admin = true;
             ViewBag.Title = "Редактирование блюд";
-            return View();
+            var model = new ProductViewModel();
+            model.Products = await _productService.GetAll();
+            IEnumerable<Category> categories = await _categoryService.GetAll();
+            ViewBag.Categories = new SelectList(categories, "Id", "CategoryName");
+            return View(model);
         }
 
-        
+        [HttpPost]
+        [Route("/Admin/Menu/EditProducts")]
+        public async Task<IActionResult> EditProducts(ProductViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (await _productService.GetByIdAsync(model.Product.Id) != null)
+                {
+                    await _productService.Update(model.Product, model.File);
+                }
+                else
+                {
+                    await _productService.AddAsync(model.Product, model.File);
+                }
+                return Redirect("~/Admin/Menu/EditProducts");
+            }
+            else
+            {
+                ViewBag.Admin = true;
+                ViewBag.Title = "Редактирование блюд";
+                model.Products = await _productService.GetAll();
+                IEnumerable<Category> categories = await _categoryService.GetAll();
+                ViewBag.Categories = new SelectList(categories, "Id", "CategoryName");
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        [Route("/Admin/Menu/DeleteProduct")]
+        public async Task DeleteProduct(Guid id)
+        {
+            await _productService.DeleteAsync(id);
+        }
+
     }
 }

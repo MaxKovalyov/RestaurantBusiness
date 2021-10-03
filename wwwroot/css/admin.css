@@ -172,4 +172,5 @@ td img {
 
 .error {
     color: #dc3545 !important;
+    display: block;
 }

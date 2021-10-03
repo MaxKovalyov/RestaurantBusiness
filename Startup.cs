@@ -32,6 +32,8 @@ namespace RestaurantBusiness
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<IReviewService, ReviewService>();
             services.AddTransient<IRestaurantService, RestaurantService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IFileService, FileService>();
 
             services.AddMvcCore();
             services.AddControllersWithViews().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();

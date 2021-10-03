@@ -41,12 +41,16 @@ function editMenu() {
     let name = $(element).find('#name').text();
     let cost = $(element).find('#cost').text();
     let category = $(element).find('#category').text();
+    let id = $(element).find('#id').text();
     $('#form').find('#name').val(name);
     $('#form').find('#cost').val(cost);
     $('#form').find('#category').val(category);
+    $('#form').find('#id').val(id);
 }
 
 function removeMenu() {
+    let id = $(this).parent().parent().find('#id').text();
+    $.get('DeleteProduct', { id: id });
     $(this).parent().parent().remove();
 }
 
