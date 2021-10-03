@@ -34,7 +34,7 @@ namespace RestaurantBusiness.App.Services
             await _repository.DeleteAsync(category);
         }
 
-        public async Task<List<Category>> GetAllCategory()
+        public async Task<List<Category>> GetAll()
         {
             var result = await _repository.GetAll().ToListAsync();
 

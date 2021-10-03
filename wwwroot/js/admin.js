@@ -63,6 +63,8 @@ function removeRestaurant() {
 }
 
 function removeReview() {
+    let id = $(this).parent().parent().find('#id').text();
+    $.get('DeleteReview', { id: id });
     $(this).parent().parent().remove();
 }
 

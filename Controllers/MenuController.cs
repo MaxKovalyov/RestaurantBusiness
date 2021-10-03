@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestaurantBusiness.App.Services;
 using RestaurantBusiness.App.ViewModels;
-using RestaurantBusiness.Models;
 using System;
 using System.Threading.Tasks;
 
@@ -42,7 +41,7 @@ namespace RestaurantBusiness.Controllers
             {
                 ViewBag.Admin = true;
                 ViewBag.Title = "Редактирование категорий";
-                model.Categories = await _categoryService.GetAllCategory();
+                model.Categories = await _categoryService.GetAll();
                 return View(model);
             }
         }
@@ -53,7 +52,7 @@ namespace RestaurantBusiness.Controllers
             ViewBag.Admin = true;
             ViewBag.Title = "Редактирование категорий";
             var model = new CategoryViewModel();
-            model.Categories = await _categoryService.GetAllCategory();
+            model.Categories = await _categoryService.GetAll();
             return View(model);
         }
 

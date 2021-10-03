@@ -1,4 +1,5 @@
-﻿<div class="container">
+﻿@model ReviewViewModel
+<div class="container">
     <div class="row">
         <h3>Список отзывов</h3>
     </div>
@@ -13,42 +14,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td id="creatorName">Виктор Сергеевич</td>
-                    <td id="date">2021-09-20 22:10</td>
-                    <td id="content">Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв</td>
-                    <td><a onclick="removeReview.call(this)">Удалить</a></td>
-                </tr>
-                <tr>
-                    <td id="creatorName">Виктор Сергеевич</td>
-                    <td id="date">2021-09-20 22:10</td>
-                    <td id="content">Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв</td>
-                    <td><a onclick="removeReview.call(this)">Удалить</a></td>
-                </tr>
-                <tr>
-                    <td id="creatorName">Виктор Сергеевич</td>
-                    <td id="date">2021-09-20 22:10</td>
-                    <td id="content">Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв</td>
-                    <td><a onclick="removeReview.call(this)">Удалить</a></td>
-                </tr>
-                <tr>
-                    <td id="creatorName">Виктор Сергеевич</td>
-                    <td id="date">2021-09-20 22:10</td>
-                    <td id="content">Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв</td>
-                    <td><a onclick="removeReview.call(this)">Удалить</a></td>
-                </tr>
-                <tr>
-                    <td id="creatorName">Виктор Сергеевич</td>
-                    <td id="date">2021-09-20 22:10</td>
-                    <td id="content">Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв</td>
-                    <td><a onclick="removeReview.call(this)">Удалить</a></td>
-                </tr>
-                <tr>
-                    <td id="creatorName">Виктор Сергеевич</td>
-                    <td id="date">2021-09-20 22:10</td>
-                    <td id="content">Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв</td>
-                    <td><a onclick="removeReview.call(this)">Удалить</a></td>
-                </tr>
+                @if (Model.Reviews != null)
+                {
+                    foreach (var item in Model.Reviews)
+                    {
+                        <tr>
+                            <td id="creatorName">@item.CreatorName</td>
+                            <td id="date">@item.Date</td>
+                            <td id="content">@item.Content</td>
+                            <td><a onclick="removeReview.call(this)">Удалить</a></td>
+                            <td class="hide" id="id">@item.Id</td>
+                        </tr>
+                    }
+                }
             </tbody>
         </table>
     </div>

@@ -2,8 +2,7 @@
 
 namespace RestaurantBusiness.App.Services
 {
-    public interface ICategoryService: IServices<Category>
+    public interface IReviewService: IServices<Review>
     {
-        
     }
 }

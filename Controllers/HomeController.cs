@@ -26,7 +26,7 @@ namespace RestaurantBusiness.Controllers
             ViewBag.Admin = true;
             ViewBag.Title = "Редактирование новостей";
             var model = new NewsViewModel();
-            model.News = await _newsService.GetAllNews();
+            model.News = await _newsService.GetAll();
             return View(model);
         }
 
@@ -50,14 +50,14 @@ namespace RestaurantBusiness.Controllers
             {
                 ViewBag.Admin = true;
                 ViewBag.Title = "Редактирование новостей";
-                model.News = await _newsService.GetAllNews();
+                model.News = await _newsService.GetAll();
                 return View(model);
             }
         }
 
         [HttpGet]
         [Route("/Admin/Home/DeleteNews")]
-        public async Task DeleteCategory(Guid id)
+        public async Task DeleteNews(Guid id)
         {
             await _newsService.DeleteAsync(id);
         }

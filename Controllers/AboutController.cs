@@ -1,9 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RestaurantBusiness.App.Services;
+using RestaurantBusiness.App.ViewModels;
+using System;
+using System.Threading.Tasks;
 
 namespace RestaurantBusiness.Controllers
 {
     public class AboutController : Controller
     {
+        private readonly IReviewService _reviewService;
+
+        public AboutController(IReviewService reviewService)
+        {
+            _reviewService = reviewService;
+        }
+
         public IActionResult Restaurants()
         {
             ViewBag.Title = "Рестораны";
@@ -49,11 +60,38 @@ namespace RestaurantBusiness.Controllers
         }
 
         [Route("/Admin/About/EditReviews")]
-        public IActionResult EditReviews()
+        public async Task<IActionResult> EditReviews()
         {
             ViewBag.Admin = true;
             ViewBag.Title = "Редактирование отзывов";
-            return View();
+            var model = new ReviewViewModel();
+            model.Reviews = await _reviewService.GetAll();
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("/Admin/About/EditReviews")]
+        public async Task<IActionResult> EditReviews(ReviewViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _reviewService.AddAsync(model.Review);
+                return Redirect("~/Admin/About/EditReviews");
+            }
+            else
+            {
+                ViewBag.Admin = true;
+                ViewBag.Title = "Редактирование отзывов";
+                model.Reviews = await _reviewService.GetAll();
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        [Route("/Admin/About/DeleteReview")]
+        public async Task DeleteReview(Guid id)
+        {
+            await _reviewService.DeleteAsync(id);
         }
     }
 }
