@@ -1,31 +1,35 @@
-﻿<div class="container">
-    <form action="" method="POST" id="form" enctype="multipart/form-data">
+﻿@model RestaurantViewModel
+<div class="container">
+    <form asp-action="EditRestaurants" method="post" id="form" enctype="multipart/form-data">
         <div class="row">
             <h3>Добавление/редактирование ресторана</h3>
         </div>
         <div class="row">
             <div class="col-2">
-                <label for="name">Название ресторана</label>
+                <label asp-for="Restaurant.Title"></label>
             </div>
             <div class="col-6">
-                <input required id="name" type="text" name="name">
+                <input id="name" type="text" asp-for="Restaurant.Title">
+                <span asp-validation-for="Restaurant.Title" class="error"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-2">
-                <label for="img">Фотография ресторана</label>
+                <label for="File">Фотография ресторана</label>
             </div>
             <div class="col-6">
-                <input required id="img" type="file" name="img" accept="image/*">
+                <input id="img" type="file" name="File" accept="image/*">
             </div>
         </div>
         <div class="row">
             <div class="col-2">
-                <label for="address">Адрес расположения</label>
+                <label asp-for="Restaurant.Adress"></label>
             </div>
             <div class="col-6">
-                <input required id="address" type="text" name="address">
+                <input id="address" type="text" asp-for="Restaurant.Adress">
+                <span asp-validation-for="Restaurant.Adress" class="error"></span>
             </div>
+            <input id="id" type="hidden" value="11111111-1111-1111-1111-111111111111" asp-for="Restaurant.Id">
         </div>
         <div class="row">
             <button type="submit" class="">Отправить</button>
@@ -48,27 +52,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td id="img"><img src="/images/Restaurants/img2.jpg" alt=""></td>
-                    <td id="name">Ресторан "Мрия"</td>
-                    <td id="address">г. Москва, ул. Дурова, д.14</td>
-                    <td><a onclick="editRestaurant.call(this)">Изменить</a></td>
-                    <td><a onclick="removeRestaurant.call(this)">Удалить</a></td>
-                </tr>
-                <tr>
-                    <td id="img"><img src="/images/Restaurants/img6.jpg" alt=""></td>
-                    <td id="name">Ресторан "Бонжур"</td>
-                    <td id="address">г. Москва, ул. Орджоникидзе, д.1</td>
-                    <td><a onclick="editRestaurant.call(this)">Изменить</a></td>
-                    <td><a onclick="removeRestaurant.call(this)">Удалить</a></td>
-                </tr>
-                <tr>
-                    <td id="img"><img src="/images/Restaurants/img1.jpg" alt=""></td>
-                    <td id="name">Ресторан "Алькабарено"</td>
-                    <td id="address">г. Москва, ул. Тимура Фрунзе, д.22с4</td>
-                    <td><a onclick="editRestaurant.call(this)">Изменить</a></td>
-                    <td><a onclick="removeRestaurant.call(this)">Удалить</a></td>
-                </tr>
+                @if (Model.Restaurants != null)
+                {
+                    foreach (var item in Model.Restaurants)
+                    {
+                        <tr>
+                            <td id="img"><img src=@item.Image alt=""></td>
+                            <td id="name">@item.Title</td>
+                            <td id="address">@item.Adress</td>
+                            <td><a onclick="editRestaurant.call(this)">Изменить</a></td>
+                            <td><a onclick="removeRestaurant.call(this)">Удалить</a></td>
+                            <td class="hide" id="id">@item.Id</td>
+                        </tr>
+                    }
+                }
             </tbody>
         </table>
     </div>

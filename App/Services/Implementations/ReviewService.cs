@@ -29,7 +29,7 @@ namespace RestaurantBusiness.App.Services
 
             if (review == null)
             {
-                throw new Exception("Delete: Категория не найдена");
+                throw new Exception("Delete: Отзыв не найден");
             }
 
             await _repository.DeleteAsync(review);

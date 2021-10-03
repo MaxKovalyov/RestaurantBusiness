@@ -28,7 +28,7 @@ namespace RestaurantBusiness.App.Services
 
             if (news == null)
             {
-                throw new Exception("Delete: Категория не найдена");
+                throw new Exception("Delete: Новость не найдена");
             }
 
             await _repository.DeleteAsync(news);
@@ -47,7 +47,7 @@ namespace RestaurantBusiness.App.Services
 
             if (news == null)
             {
-                throw new Exception("Update: Категория не найдена");
+                throw new Exception("Update: Новость не найдена");
             }
 
             news.Content = model.Content;

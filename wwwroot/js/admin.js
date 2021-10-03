@@ -27,7 +27,7 @@ function editCategory() {
     let category = $(element).find('#category').text();
     let id = $(element).find('#id').text();
     $('#form').find('#category').val(category);
-    
+    $('#form').find('#id').val(id);
 }
 
 function removeCategory() {
@@ -54,11 +54,15 @@ function editRestaurant() {
     let element = $(this).parent().parent();
     let name = $(element).find('#name').text();
     let address = $(element).find('#address').text();
+    let id = $(element).find('#id').text();
     $('#form').find('#name').val(name);
     $('#form').find('#address').val(address);
+    $('#form').find('#id').val(id);
 }
 
 function removeRestaurant() {
+    let id = $(this).parent().parent().find('#id').text();
+    $.get('DeleteRestaurant', { id: id });
     $(this).parent().parent().remove();
 }
 
