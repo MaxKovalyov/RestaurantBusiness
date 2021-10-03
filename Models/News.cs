@@ -6,6 +6,7 @@ namespace RestaurantBusiness.Models
     public class News: BaseModel
     {
         [Display(Name = "Дата события")]
+        [RegularExpression(@"^[0-9]{2}.[0-9]{2}.[0-9]{4}$", ErrorMessage = "Неверный формат даты (дд.мм.гггг)")]
         public DateTime Date { get; set; }
 
         [Display(Name = "Описание новости")]

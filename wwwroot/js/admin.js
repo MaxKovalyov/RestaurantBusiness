@@ -84,15 +84,19 @@ function editTableOrder() {
     let guests = $(element).find('#guests').text();
     let phone = $(element).find('#phone').text();
     let content = $(element).find('#content').text();
+    let id = $(element).find('#id').text();
     $('#form').find('#date').val(date);
     $('#form').find('#restaurant').val(restaurant);
     $('#form').find('#fio').val(fio);
     $('#form').find('#guests').val(guests);
     $('#form').find('#phone').val(phone);
+    $('#form').find('#id').val(id);
     CKEDITOR.instances['content'].setData(content);
 }
 
 function removeTableOrder() {
+    let id = $(this).parent().parent().find('#id').text();
+    $.get('DeleteOrder', { id: id });
     $(this).parent().parent().remove();
 }
 

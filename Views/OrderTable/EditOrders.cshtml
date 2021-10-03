@@ -1,64 +1,66 @@
-﻿<div class="container">
-    <form action="" method="POST" id="form" enctype="multipart/form-data">
+﻿@model OrderTableViewModel
+<div class="container">
+    <form asp-action="EditOrders" method="post" id="form">
         <div class="row">
             <h3>Редактирование заказа столика</h3>
         </div>
         <div class="row">
             <div class="col-2">
-                <label for="restaurant">Ресторан</label>
+                <label asp-for="OrderTable.RestaurantId"></label>
             </div>
             <div class="col-6">
-                <select class="input-select" name="restaurant" id="restaurant">
+                <select class="input-select" asp-for="OrderTable.RestaurantId" asp-items="ViewBag.Restaurants" id="restaurant">
                     <option disabled selected>Выберите ресторан</option>
-                    <option value="Мрия">Мрия</option>
-                    <option value="Бонжур">Бонжур</option>
-                    <option value="Пиколлино">Пиколлино</option>
-                    <option value="Алькабарено">Алькабарено</option>
                 </select>
+                <span asp-validation-for="OrderTable.RestaurantId" class="error"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-2">
-                <label for="date">Дата заказа</label>
+                <label asp-for="OrderTable.Date"></label>
             </div>
             <div class="col-6">
-                <input required id="date" type="text" name="date">
+                <input id="date" type="text" asp-for="OrderTable.Date" value="@DateTime.Now.ToShortDateString()">
+                <span asp-validation-for="OrderTable.Date" class="error"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-2">
-                <label for="fio">ФИО заказчика</label>
+                <label asp-for="OrderTable.ClientName"></label>
             </div>
             <div class="col-6">
-                <input required id="fio" type="text" name="fio">
+                <input required id="fio" type="text" asp-for="OrderTable.ClientName">
+                <span asp-validation-for="OrderTable.ClientName" class="error"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-2">
-                <label for="phone">Телефон заказчика</label>
+                <label asp-for="OrderTable.ClientPhone"></label>
             </div>
             <div class="col-6">
-                <input required id="phone" type="text" name="phone">
+                <input required id="phone" type="text" asp-for="OrderTable.ClientPhone">
+                <span asp-validation-for="OrderTable.ClientPhone" class="error"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-2">
-                <label for="guests">Количество гостей</label>
+                <label asp-for="OrderTable.CountGuest"></label>
             </div>
             <div class="col-6">
-                <input required id="guests" type="text" name="guests">
+                <input required id="guests" type="text" asp-for="OrderTable.CountGuest">
+                <span asp-validation-for="OrderTable.CountGuest" class="error"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-2">
-                <label for="content">Подробности заказа</label>
+                <label asp-for="OrderTable.Description"></label>
             </div>
             <div class="col-6">
-                <textarea required id="content" name="content" cols="100" rows="10"></textarea>
-                <script type="text/javascript">
-                            CKEDITOR.replace('content');
-                </script>
+                <textarea id="content-editor" class="ckeditor" name="editor1" cols="80" rows="10"></textarea>
+                <a class="button" onclick="saveContent()">Сохранить содержимое</a>
             </div>
+            <input id="id" type="hidden" asp-for="OrderTable.Id" value="11111111-1111-1111-1111-111111111111">
+            <textarea class="hide" id="content" asp-for="OrderTable.Description"></textarea>
         </div>
         <div class="row">
             <button type="submit" class="">Отправить</button>
@@ -83,36 +85,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td id="restaurant">Алькабарено</td>
-                    <td id="date">2021-09-20</td>
-                    <td id="fio">Карпов Виктор Сергеевич</td>
-                    <td id="phone">+79787564888</td>
-                    <td id="guests">3</td>
-                    <td><a onclick="editTableOrder.call(this)">Изменить</a></td>
-                    <td><a onclick="removeTableOrder.call(this)">Удалить</a></td>
-                    <td id="content" class="hide">Хочу того-то и этого и того и опять этого, всего хочу и дёшево</td>
-                </tr>
-                <tr>
-                    <td id="restaurant">Алькабарено</td>
-                    <td id="date">2021-09-20</td>
-                    <td id="fio">Карпов Виктор Сергеевич</td>
-                    <td id="phone">+79787564888</td>
-                    <td id="guests">1</td>
-                    <td><a onclick="editTableOrder.call(this)">Изменить</a></td>
-                    <td><a onclick="removeTableOrder.call(this)">Удалить</a></td>
-                    <td id="content" class="hide">Хочу того-то и этого и того и опять этого, всего хочу и дёшево</td>
-                </tr>
-                <tr>
-                    <td id="restaurant">Алькабарено</td>
-                    <td id="date">2021-09-20</td>
-                    <td id="fio">Карпов Виктор Сергеевич</td>
-                    <td id="phone">+79787564888</td>
-                    <td id="guests">2</td>
-                    <td><a onclick="editTableOrder.call(this)">Изменить</a></td>
-                    <td><a onclick="removeTableOrder.call(this)">Удалить</a></td>
-                    <td id="content" class="hide">Хочу того-то и этого и того и опять этого, всего хочу и дёшево</td>
-                </tr>
+                @if (Model.TableOrders != null)
+                {
+                    foreach (var item in Model.TableOrders)
+                    {
+                        <tr>
+                            <td id="restaurant-name">@item.Restaurant.Title</td>
+                            <td id="date">@item.Date</td>
+                            <td id="fio">@item.ClientName</td>
+                            <td id="phone">@item.ClientPhone</td>
+                            <td id="guests">@item.CountGuest</td>
+                            <td><a onclick="editTableOrder.call(this)">Изменить</a></td>
+                            <td><a onclick="removeTableOrder.call(this)">Удалить</a></td>
+                            <td id="content" class="hide">@item.Description</td>
+                            <td id="id" class="hide">@item.Id</td>
+                            <td id="restaurant" class="hide">@item.RestaurantId</td>
+                        </tr>
+                    }
+                }
             </tbody>
         </table>
     </div>
