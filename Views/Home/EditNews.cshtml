@@ -9,7 +9,7 @@
                 <label asp-for="OneNews.Date"></label>
             </div>
             <div class="col-6">
-                <input required id="date" type="text" asp-for="OneNews.Date" value="@DateTime.Now.ToShortDateString()">
+                <input required id="date" type="text" asp-for="OneNews.Date" value="@DateTime.Now" disabled>
                 <span asp-validation-for="OneNews.Date" class="error"></span>
             </div>
         </div>
@@ -72,9 +72,16 @@
         </table>
     </div>
     <div class="row text-center">
-        <a class="active">1</a>
-        <a href="">2</a>
-        <a href="">3</a>
-        <a href="">4</a>
+        @for (int i = 1; i <= Model.PageModel.TotalPages; i++)
+        {
+            if (i == Model.PageModel.PageNumber)
+            {
+                <a class="active">@i</a>
+            }
+            else
+            {
+                <a asp-action="EditNews" asp-route-page="@i">@i</a>
+            }
+        }
     </div>
 </div>

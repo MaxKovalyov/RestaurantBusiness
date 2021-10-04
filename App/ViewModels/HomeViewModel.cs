@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace RestaurantBusiness.App.ViewModels
 {
-    public class NewsViewModel
+    public class HomeViewModel
     {
-        public List<News> News { get; set; }
+        public List<Restaurant> Restaurants { get; set; }
 
-        public News OneNews { get; set; }
+        public List<News> News { get; set; }
 
         public PageViewModel PageModel { get; set; }
     }

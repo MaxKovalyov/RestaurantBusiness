@@ -1,4 +1,5 @@
-﻿<section id="about">
+﻿@model HomeViewModel
+<section id="about">
     <div class="container">
         <div class="row text-center">
             <h2>О сети ресторанов</h2>
@@ -18,7 +19,13 @@
             <h2>Галерея</h2>
         </div>
         <div class="slideshow-container">
-            <img src="../images/Restaurants/img1.jpg" data-slideshow="../images/Restaurants/img2.jpg|../images/Restaurants/img3.jpg|../images/Restaurants/img4.jpg|../images/Restaurants/img5.jpg|../images/Restaurants/img6.jpg|../images/Restaurants/img8.jpg">
+            <img src="../images/Restaurants/img1.jpg" data-slideshow="
+                 @foreach(var item in Model.Restaurants)
+                  {
+                     @string.Concat(item.Image, "|");
+                  }
+                 @*../images/Restaurants/img2.jpg|../images/Restaurants/img3.jpg|../images/Restaurants/img4.jpg|../images/Restaurants/img5.jpg|../images/Restaurants/img6.jpg|../images/Restaurants/img8.jpg*@
+                 ">
         </div>
     </div>
 </section>
@@ -28,67 +35,110 @@
             <h2>Новости</h2>
         </div>
         <div class="items text-center">
-            <div class="one-item col-3">
-                <a href="">
-                    <div class="item">
-                        <h3>Новое главное блюдо</h3>
-                        <p>Дата публикации: 15.09.2021</p>
-                    </div>
-                </a>
-            </div>
-            <div class="one-item col-3">
-                <a href="">
-                    <div class="item">
-                        <h3>Торжественное мероприятие с известными актёрами театра и кино</h3>
-                        <p>Дата публикации: 12.09.2021</p>
-                    </div>
-                </a>
-            </div>
-            <div class="one-item col-3">
-                <a href="">
-                    <div class="item">
-                        <h3>Открытие нового ресторана на Пограничной 3</h3>
-                        <p>Дата публикации: 17.09.2021</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="items text-center">
-            <div class="one-item col-3">
-                <a href="">
-                    <div class="item">
-                        <h3>Открытие нового ресторана на Пограничной 3</h3>
-                        <p>Дата публикации: 17.09.2021</p>
-                    </div>
-                </a>
-            </div>
-            <div class="one-item col-3">
-                <a href="">
-                    <div class="item">
-                        <h3>Новое главное блюдо</h3>
-                        <p>Дата публикации: 15.09.2021</p>
-                    </div>
-                </a>
-            </div>
-            <div class="one-item col-3">
-                <a href="">
-                    <div class="item">
-                        <h3>Торжественное мероприятие я известными актёрами театра и кино</h3>
-                        <p>Дата публикации: 12.09.2021</p>
-                    </div>
-                </a>
-            </div>
+            @foreach (var item in Model.News)
+            {
+                <div class="one-item col-3">
+                    <a href="">
+                        <div class="item">
+                            <h3>@item.Description</h3>
+                            <p>Дата публикации: @item.Date</p>
+                        </div>
+                    </a>
+                </div>
+            }
         </div>
     </div>
 </section>
 <section class="paginator">
     <div class="container">
         <div class="text-center">
-            <a class="active" href="">1</a>
-            <a href="">2</a>
-            <span>...</span>
-            <a href="">9</a>
-            <a href="">10</a>
+            @if (Model.PageModel.PageNumber == 1)
+            {
+                if (Model.PageModel.TotalPages > 2)
+                {
+                    <a class="active">1</a>
+                    <a asp-action="Index" asp-route-page="2">2</a>
+                    <span>...</span>
+                    <a asp-action="Index" asp-route-page="@Model.PageModel.TotalPages">@Model.PageModel.TotalPages</a>
+                }
+                else
+                {
+                    if (Model.PageModel.TotalPages == 2)
+                    {
+                        <a class="active">1</a>
+                        <a asp-action="Index" asp-route-page="2">2</a>
+                    }
+                    else
+                    {
+                        if (Model.PageModel.TotalPages == 1)
+                        {
+                            <a class="active">1</a>
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (Model.PageModel.PageNumber == 2)
+                {
+                    if (Model.PageModel.TotalPages > 3)
+                    {
+                        <a asp-action="Index" asp-route-page="1">1</a>
+                        <a class="active">2</a>
+                        <a asp-action="Index" asp-route-page="3">3</a>
+                        <span>...</span>
+                        <a asp-action="Index" asp-route-page="@Model.PageModel.TotalPages">@Model.PageModel.TotalPages</a>
+                    }
+                    else
+                    {
+                        if (Model.PageModel.TotalPages == 3)
+                        {
+                            <a asp-action="Index" asp-route-page="1">1</a>
+                            <a class="active">2</a>
+                            <a asp-action="Index" asp-route-page="3">3</a>
+                        }
+                        else
+                        {
+                            if (Model.PageModel.TotalPages == 2)
+                            {
+                                <a asp-action="Index" asp-route-page="1">1</a>
+                                <a class="active">2</a>
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (Model.PageModel.PageNumber == Model.PageModel.TotalPages - 1)
+                    {
+                        <a asp-action="Index" asp-route-page="1">1</a>
+                        <span>...</span>
+                        <a asp-action="Index" asp-route-page="@(Model.PageModel.PageNumber-1)">@(Model.PageModel.PageNumber-1)</a>
+                        <a asp-action="Index" asp-route-page="@Model.PageModel.PageNumber">@Model.PageModel.PageNumber</a>
+                        <a asp-action="Index" asp-route-page="@Model.PageModel.TotalPages">@Model.PageModel.TotalPages</a>
+                    }
+                    else
+                    {
+                        if (Model.PageModel.PageNumber == Model.PageModel.TotalPages)
+                        {
+                            <a asp-action="Index" asp-route-page="1">1</a>
+                            <span>...</span>
+                            <a asp-action="Index" asp-route-page="@(Model.PageModel.PageNumber-1)">@(Model.PageModel.PageNumber-1)</a>
+                            <a asp-action="Index" asp-route-page="@Model.PageModel.PageNumber">@Model.PageModel.PageNumber</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Index" asp-route-page="1">1</a>
+                            <span>...</span>
+                            <a asp-action="Index" asp-route-page="@(Model.PageModel.PageNumber-1)">@(Model.PageModel.PageNumber-1)</a>
+                            <a asp-action="Index" asp-route-page="@Model.PageModel.PageNumber">@Model.PageModel.PageNumber</a>
+                            <a asp-action="Index" asp-route-page="@(Model.PageModel.PageNumber+1)">@(Model.PageModel.PageNumber+1)</a>
+                            <span>...</span>
+                            <a asp-action="Index" asp-route-page="@Model.PageModel.PageNumber">@Model.PageModel.PageNumber</a>
+                        }
+                    }
+                }
+            }
         </div>
     </div>
 </section>

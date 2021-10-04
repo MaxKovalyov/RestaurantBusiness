@@ -19,6 +19,7 @@ namespace RestaurantBusiness.App.Services
         public async Task AddAsync(News model)
         {
             model.Id = new Guid();
+            model.Date = DateTime.Now;
             await _repository.AddAsync(model);
         }
 
@@ -51,7 +52,7 @@ namespace RestaurantBusiness.App.Services
             }
 
             news.Content = model.Content;
-            news.Date = model.Date;
+            news.Date = DateTime.Now;
             news.Description = model.Description;
             
             await _repository.UpdateAsync(news);
