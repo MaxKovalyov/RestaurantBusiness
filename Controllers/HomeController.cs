@@ -78,8 +78,8 @@ namespace RestaurantBusiness.Controllers
                 ViewBag.Title = "Редактирование новостей";
                 IEnumerable<News> news = await _newsService.GetAll();
                 var countItems = news.Count();
-                var items = news.Skip((model.PageModel.PageNumber - 1) * _pageSize).Take(_pageSize).ToList();
-                var pageModel = new PageViewModel(countItems, model.PageModel.PageNumber, _pageSize);
+                var items = news.Take(_pageSize).ToList();
+                var pageModel = new PageViewModel(countItems, 1, _pageSize);
                 model.News = items;
                 model.PageModel = pageModel;
                 return View(model);

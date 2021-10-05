@@ -1,75 +1,142 @@
-﻿<section id="form-review">
+﻿@model ReviewViewModel
+<section id="form-review">
     <div class="container">
         <div class="row text-center">
-            <form action="" method="post">
+            <form asp-action="Reviews" method="post">
                 <div class="first-row">
-                    <input type="text" class="input" name="name" placeholder="Введите имя" required autocomplete="off">
+                    <input type="text" class="input" asp-for="Review.CreatorName" placeholder="Введите имя">
                     <input type="submit" class="button" value="Добавить">
                 </div>
                 <div class="text-area">
-                    <textarea name="message" cols="100" placeholder="Введите ваш отзыв" rows="4"></textarea>
+                    <textarea asp-for="Review.Content" cols="100" placeholder="Введите ваш отзыв" rows="4"></textarea>
                 </div>
+                <span asp-validation-for="Review.CreatorName" class="error"></span>
             </form>
         </div>
     </div>
 </section>
 <section id="reviews">
     <div class="container">
-        <div class="row justify-content">
-            <div class="title-review">
-                <p class="left-tab">12.09.2021 00:05</p>
-                <p class="left-tab">Виктор Сергеевич</p>
-            </div>
-            <div class="text-review">
-                <p>Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв </p>
-            </div>
-        </div>
-        <div class="row content-right">
-            <div class="title-review">
-                <p class="right-tab">12.09.2021 00:05</p>
-                <p class="right-tab">Виктор Сергеевич</p>
-            </div>
-            <div class="text-review">
-                <p>Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв </p>
-            </div>
-        </div>
-        <div class="row justify-content">
-            <div class="title-review">
-                <p class="left-tab">12.09.2021 00:05</p>
-                <p class="left-tab">Виктор Сергеевич</p>
-            </div>
-            <div class="text-review">
-                <p>Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв </p>
-            </div>
-        </div>
-        <div class="row content-right">
-            <div class="title-review">
-                <p class="right-tab">12.09.2021 00:05</p>
-                <p class="right-tab">Виктор Сергеевич</p>
-            </div>
-            <div class="text-review">
-                <p>Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв </p>
-            </div>
-        </div>
-        <div class="row justify-content">
-            <div class="title-review">
-                <p class="left-tab">12.09.2021 00:05</p>
-                <p class="left-tab">Виктор Сергеевич</p>
-            </div>
-            <div class="text-review">
-                <p>Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв Мой отзыв </p>
-            </div>
-        </div>
+        @foreach (var item in Model.Reviews)
+        {
+            if (Model.IsEven)
+            {
+                <div class="row justify-content">
+                    <div class="title-review">
+                        <p class="left-tab">@item.Date</p>
+                        <p class="left-tab">@item.CreatorName</p>
+                    </div>
+                    <div class="text-review">
+                        <p>@item.Content</p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row content-right">
+                    <div class="title-review">
+                        <p class="left-tab">@item.Date</p>
+                        <p class="left-tab">@item.CreatorName</p>
+                    </div>
+                    <div class="text-review">
+                        <p>@item.Content</p>
+                    </div>
+                </div>
+            }
+            Model.IsEven = !Model.IsEven;
+        }
     </div>
 </section>
 <section class="paginator">
     <div class="container">
         <div class="text-center">
-            <a class="active" href="">1</a>
-            <a href="">2</a>
-            <span>...</span>
-            <a href="">9</a>
-            <a href="">10</a>
+            @if (Model.PageModel.PageNumber == 1)
+            {
+                if (Model.PageModel.TotalPages > 2)
+                {
+                    <a class="active">1</a>
+                    <a asp-action="Reviews" asp-route-page="2">2</a>
+                    <span>...</span>
+                    <a asp-action="Reviews" asp-route-page="@Model.PageModel.TotalPages">@Model.PageModel.TotalPages</a>
+                }
+                else
+                {
+                    if (Model.PageModel.TotalPages == 2)
+                    {
+                        <a class="active">1</a>
+                        <a asp-action="Reviews" asp-route-page="2">2</a>
+                    }
+                    else
+                    {
+                        if (Model.PageModel.TotalPages == 1)
+                        {
+                            <a class="active">1</a>
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (Model.PageModel.PageNumber == 2)
+                {
+                    if (Model.PageModel.TotalPages > 3)
+                    {
+                        <a asp-action="Reviews" asp-route-page="1">1</a>
+                        <a class="active">2</a>
+                        <a asp-action="Reviews" asp-route-page="3">3</a>
+                        <span>...</span>
+                        <a asp-action="Reviews" asp-route-page="@Model.PageModel.TotalPages">@Model.PageModel.TotalPages</a>
+                    }
+                    else
+                    {
+                        if (Model.PageModel.TotalPages == 3)
+                        {
+                            <a asp-action="Reviews" asp-route-page="1">1</a>
+                            <a class="active">2</a>
+                            <a asp-action="Reviews" asp-route-page="3">3</a>
+                        }
+                        else
+                        {
+                            if (Model.PageModel.TotalPages == 2)
+                            {
+                                <a asp-action="Reviews" asp-route-page="1">1</a>
+                                <a class="active">2</a>
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (Model.PageModel.PageNumber == Model.PageModel.TotalPages - 1)
+                    {
+                        <a asp-action="Reviews" asp-route-page="1">1</a>
+                        <span>...</span>
+                        <a asp-action="Reviews" asp-route-page="@(Model.PageModel.PageNumber-1)">@(Model.PageModel.PageNumber-1)</a>
+                        <a asp-action="Reviews" asp-route-page="@Model.PageModel.PageNumber">@Model.PageModel.PageNumber</a>
+                        <a asp-action="Reviews" asp-route-page="@Model.PageModel.TotalPages">@Model.PageModel.TotalPages</a>
+                    }
+                    else
+                    {
+                        if (Model.PageModel.PageNumber == Model.PageModel.TotalPages)
+                        {
+                            <a asp-action="Reviews" asp-route-page="1">1</a>
+                            <span>...</span>
+                            <a asp-action="Reviews" asp-route-page="@(Model.PageModel.PageNumber-1)">@(Model.PageModel.PageNumber-1)</a>
+                            <a asp-action="Reviews" asp-route-page="@Model.PageModel.PageNumber">@Model.PageModel.PageNumber</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Reviews" asp-route-page="1">1</a>
+                            <span>...</span>
+                            <a asp-action="Reviews" asp-route-page="@(Model.PageModel.PageNumber-1)">@(Model.PageModel.PageNumber-1)</a>
+                            <a asp-action="Reviews" asp-route-page="@Model.PageModel.PageNumber">@Model.PageModel.PageNumber</a>
+                            <a asp-action="Reviews" asp-route-page="@(Model.PageModel.PageNumber+1)">@(Model.PageModel.PageNumber+1)</a>
+                            <span>...</span>
+                            <a asp-action="Restaurants" asp-route-page="@Model.PageModel.PageNumber">@Model.PageModel.PageNumber</a>
+                        }
+                    }
+                }
+            }
         </div>
     </div>
 </section>

@@ -78,8 +78,8 @@ namespace RestaurantBusiness.Controllers
                 ViewBag.Title = "Редактирование ресторанов";
                 IEnumerable<Restaurant> restaurants = await _restaurantService.GetAll();
                 var countItems = restaurants.Count();
-                var items = restaurants.Skip((model.PageModel.PageNumber - 1) * _restaurantPageSize).Take(_restaurantPageSize).ToList();
-                var pageModel = new PageViewModel(countItems, model.PageModel.PageNumber, _restaurantPageSize);
+                var items = restaurants.Take(_restaurantPageSize).ToList();
+                var pageModel = new PageViewModel(countItems, 1, _restaurantPageSize);
                 model.Restaurants = items;
                 model.PageModel = pageModel;
                 return View(model);
@@ -117,36 +117,56 @@ namespace RestaurantBusiness.Controllers
             return View();
         }
 
-        public IActionResult Reviews()
+        public async Task<IActionResult> Reviews(int page = 1)
         {
             ViewBag.Title = "Отзывы";
-            return View();
+            IEnumerable<Review> reviews = await _reviewService.GetAll();
+            var countItems = reviews.Count();
+            var items = reviews.Skip((page - 1) * _reviewPageSize).Take(_reviewPageSize).ToList();
+            var pageModel = new PageViewModel(countItems, page, _reviewPageSize);
+            var model = new ReviewViewModel()
+            {
+                Reviews = items,
+                PageModel = pageModel,
+                IsEven = true
+            };
+            return View(model);
         }
 
         [Route("/Admin/About/EditReviews")]
-        public async Task<IActionResult> EditReviews()
+        public async Task<IActionResult> EditReviews(int page = 1)
         {
             ViewBag.Admin = true;
             ViewBag.Title = "Редактирование отзывов";
-            var model = new ReviewViewModel();
-            model.Reviews = await _reviewService.GetAll();
+            IEnumerable<Review> reviews = await _reviewService.GetAll();
+            var countItems = reviews.Count();
+            var items = reviews.Skip((page - 1) * _reviewPageSize).Take(_reviewPageSize).ToList();
+            var pageModel = new PageViewModel(countItems, page, _reviewPageSize);
+            var model = new ReviewViewModel()
+            {
+                Reviews = items,
+                PageModel = pageModel
+            };
             return View(model);
         }
 
         [HttpPost]
-        [Route("/Admin/About/EditReviews")]
-        public async Task<IActionResult> EditReviews(ReviewViewModel model)
+        public async Task<IActionResult> Reviews(ReviewViewModel model)
         {
             if (ModelState.IsValid)
             {
                 await _reviewService.AddAsync(model.Review);
-                return Redirect("~/Admin/About/EditReviews");
+                return Redirect("~/About/Reviews");
             }
             else
             {
-                ViewBag.Admin = true;
                 ViewBag.Title = "Редактирование отзывов";
-                model.Reviews = await _reviewService.GetAll();
+                IEnumerable<Review> reviews = await _reviewService.GetAll();
+                var countItems = reviews.Count();
+                var items = reviews.Take(_reviewPageSize).ToList();
+                var pageModel = new PageViewModel(countItems, 1, _reviewPageSize);
+                model.Reviews = items;
+                model.PageModel = pageModel;
                 return View(model);
             }
         }

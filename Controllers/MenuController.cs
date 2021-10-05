@@ -56,8 +56,8 @@ namespace RestaurantBusiness.Controllers
                 ViewBag.Title = "Редактирование категорий";
                 IEnumerable<Category> categories = await _categoryService.GetAll();
                 var countItems = categories.Count();
-                var items = categories.Skip((model.PageModel.PageNumber - 1) * _pageSize).Take(_pageSize).ToList();
-                var pageModel = new PageViewModel(countItems, model.PageModel.PageNumber, _pageSize);
+                var items = categories.Take(_pageSize).ToList();
+                var pageModel = new PageViewModel(countItems, 1, _pageSize);
                 model.Categories = items;
                 model.PageModel = pageModel;
                 return View(model);
@@ -129,8 +129,8 @@ namespace RestaurantBusiness.Controllers
                 ViewBag.Title = "Редактирование блюд";
                 IEnumerable<Product> products = await _productService.GetAll();
                 var countItems = products.Count();
-                var items = products.Skip((model.PageModel.PageNumber - 1) * _pageSize).Take(_pageSize).ToList();
-                var pageModel = new PageViewModel(countItems, model.PageModel.PageNumber, _pageSize);
+                var items = products.Take(_pageSize).ToList();
+                var pageModel = new PageViewModel(countItems, 1, _pageSize);
                 model.Products = items;
                 model.PageModel = pageModel;
                 IEnumerable<Category> categories = await _categoryService.GetAll();
