@@ -1,318 +1,52 @@
-﻿<section id="slideshow-min">
+﻿@model MenuViewModel
+<section id="slideshow-min">
     <div class="container">
         <div class="row text-center">
             <h2>Галерея</h2>
         </div>
         <div class="slideshow-container-min">
-            <img src="../images/Products/first4.jpg" data-slideshow="../images/Products/first1.jpg|../images/Products/first2.jpg|../images/Products/first3.jpg">
-            <img src="../images/Products/second4.jpg" data-slideshow="../images/Products/second1.jpg|../images/Products/second2.jpg|../images/Products/second3.jpg">
-            <img src="../images/Products/snack4.jpg" data-slideshow="../images/Products/snack1.jpg|../images/Products/snack2.jpg|../images/Products/snack3.jpg|">
-            <img src="../images/Products/drink4.jpg" data-slideshow="../images/Products/drink1.jpg|../images/Products/drink2.jpg|../images/Products/drink3.jpg">
-            <img src="../images/Products/dessert4.jpg" data-slideshow="../images/Products/dessert1.jpg|../images/Products/dessert2.jpg|../images/Products/dessert3.jpg">
+            @foreach (var category in Model.Categories)
+            {
+                <img src="@Model.Products.Where(p => p.CategoryId == category.Id).FirstOrDefault().Image" data-slideshow="
+                    @foreach(var product in Model.Products.Where(p => p.CategoryId == category.Id))
+                     {
+                        if(product == Model.Products[0])
+                        {
+                            @product.Image;
+                        } 
+                        else
+                        {
+                            @string.Concat("|", product.Image);
+                        }
+                     }
+                     ">
+            }
         </div>
     </div>
 </section>
 <section id="menu">
     <div class="container">
-        <div class="row text-center">
-            <h2>Первое блюдо</h2>
-        </div>
-        <div class="products-grid">
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/first1.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">650 ₽</span>
-                </div>
+        @foreach (var category in Model.Categories)
+        {
+            <div class="row text-center">
+                <h2>@category.CategoryName</h2>
             </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/first2.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Вителло тоннато</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">1200 ₽</span>
-                </div>
+            <div class="products-grid">
+                @foreach (var product in Model.Products.Where(p => p.CategoryId == category.Id))
+                {
+                    <div class="product">
+                        <div class="product-img">
+                            <img src="@product.Image" alt="@product.Title">
+                        </div>
+                        <div class="product-title">
+                            <span class="title">@product.Title</span>
+                        </div>
+                        <div class="product-cost">
+                            <span class="cost">@product.Cost ₽</span>
+                        </div>
+                    </div>
+                }
             </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/first3.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Минестроне с фрегола сарда</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">650 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/first4.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Сицилийский рыбный суп</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">2000 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/first2.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span>Вителло тоннато</span>
-                </div>
-                <div class="product-cost">
-                    <span>1200 ₽</span>
-                </div>
-            </div>
-        </div>
-        <div class="row text-center">
-            <h2>Второе блюдо</h2>
-        </div>
-        <div class="products-grid">
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/second1.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">650 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/second2.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Вителло тоннато</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">1200 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/second3.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Минестроне с фрегола сарда</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">650 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/second4.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Сицилийский рыбный суп</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">2000 ₽</span>
-                </div>
-            </div>
-        </div>
-        <div class="row text-center">
-            <h2>Напитки</h2>
-        </div>
-        <div class="products-grid">
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/drink1.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">650 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/drink2.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Вителло тоннато</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">1200 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/drink3.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Минестроне с фрегола сарда</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">650 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/drink4.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Сицилийский рыбный суп</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">2000 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/drink1.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">650 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/drink2.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Вителло тоннато</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">1200 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/drink3.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Минестроне с фрегола сарда</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">650 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/drink4.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Сицилийский рыбный суп</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">2000 ₽</span>
-                </div>
-            </div>
-        </div>
-        <div class="row text-center">
-            <h2>Закуски</h2>
-        </div>
-        <div class="products-grid">
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/snack1.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">650 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/snack2.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Вителло тоннато</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">1200 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/snack3.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Минестроне с фрегола сарда</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">650 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/snack4.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Сицилийский рыбный суп</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">2000 ₽</span>
-                </div>
-            </div>
-        </div>
-        <div class="row text-center">
-            <h2>Десерты</h2>
-        </div>
-        <div class="products-grid">
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/dessert1.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">650 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/dessert2.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Вителло тоннато</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">1200 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/dessert3.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Минестроне с фрегола сарда</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">650 ₽</span>
-                </div>
-            </div>
-            <div class="product">
-                <div class="product-img">
-                    <img src="../images/Products/dessert4.jpg" alt="">
-                </div>
-                <div class="product-title">
-                    <span class="title">Сицилийский рыбный суп</span>
-                </div>
-                <div class="product-cost">
-                    <span class="cost">2000 ₽</span>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </section>

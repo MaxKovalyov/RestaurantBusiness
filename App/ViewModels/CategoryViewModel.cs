@@ -8,5 +8,7 @@ namespace RestaurantBusiness.App.ViewModels
         public List<Category> Categories { get; set; }
 
         public Category Category { get; set; }
+
+        public PageViewModel PageModel { get; set; }
     }
 }

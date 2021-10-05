@@ -76,8 +76,6 @@ namespace RestaurantBusiness.Controllers
             {
                 ViewBag.Admin = true;
                 ViewBag.Title = "Редактирование ресторанов";
-                ViewBag.Admin = true;
-                ViewBag.Title = "Редактирование ресторанов";
                 IEnumerable<Restaurant> restaurants = await _restaurantService.GetAll();
                 var countItems = restaurants.Count();
                 var items = restaurants.Skip((model.PageModel.PageNumber - 1) * _restaurantPageSize).Take(_restaurantPageSize).ToList();

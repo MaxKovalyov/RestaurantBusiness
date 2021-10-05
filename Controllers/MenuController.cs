@@ -5,6 +5,7 @@ using RestaurantBusiness.App.ViewModels;
 using RestaurantBusiness.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RestaurantBusiness.Controllers
@@ -14,16 +15,23 @@ namespace RestaurantBusiness.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
 
+        private readonly int _pageSize = 3;
+
         public MenuController(ICategoryService categoryService, IProductService productService)
         {
             _categoryService = categoryService;
             _productService = productService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             ViewBag.Title = "Меню";
-            return View();
+            var model = new MenuViewModel()
+            {
+                Categories = await _categoryService.GetAll(),
+                Products = await _productService.GetAll()
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -46,18 +54,30 @@ namespace RestaurantBusiness.Controllers
             {
                 ViewBag.Admin = true;
                 ViewBag.Title = "Редактирование категорий";
-                model.Categories = await _categoryService.GetAll();
+                IEnumerable<Category> categories = await _categoryService.GetAll();
+                var countItems = categories.Count();
+                var items = categories.Skip((model.PageModel.PageNumber - 1) * _pageSize).Take(_pageSize).ToList();
+                var pageModel = new PageViewModel(countItems, model.PageModel.PageNumber, _pageSize);
+                model.Categories = items;
+                model.PageModel = pageModel;
                 return View(model);
             }
         }
 
         [Route("/Admin/Menu/EditCategories")]
-        public async Task<IActionResult> EditCategories()
+        public async Task<IActionResult> EditCategories(int page = 1)
         {
             ViewBag.Admin = true;
             ViewBag.Title = "Редактирование категорий";
-            var model = new CategoryViewModel();
-            model.Categories = await _categoryService.GetAll();
+            IEnumerable<Category> categories = await _categoryService.GetAll();
+            var countItems = categories.Count();
+            var items = categories.Skip((page - 1) * _pageSize).Take(_pageSize).ToList();
+            var pageModel = new PageViewModel(countItems, page, _pageSize);
+            var model = new CategoryViewModel()
+            {
+                Categories = items,
+                PageModel = pageModel
+            };
             return View(model);
         }
 
@@ -69,12 +89,19 @@ namespace RestaurantBusiness.Controllers
         }
 
         [Route("/Admin/Menu/EditProducts")]
-        public async Task<IActionResult> EditProducts()
+        public async Task<IActionResult> EditProducts(int page = 1)
         {
             ViewBag.Admin = true;
             ViewBag.Title = "Редактирование блюд";
-            var model = new ProductViewModel();
-            model.Products = await _productService.GetAll();
+            IEnumerable<Product> products = await _productService.GetAll();
+            var countItems = products.Count();
+            var items = products.Skip((page - 1) * _pageSize).Take(_pageSize).ToList();
+            var pageModel = new PageViewModel(countItems, page, _pageSize);
+            var model = new ProductViewModel()
+            {
+                Products = items,
+                PageModel = pageModel
+            };
             IEnumerable<Category> categories = await _categoryService.GetAll();
             ViewBag.Categories = new SelectList(categories, "Id", "CategoryName");
             return View(model);
@@ -100,7 +127,12 @@ namespace RestaurantBusiness.Controllers
             {
                 ViewBag.Admin = true;
                 ViewBag.Title = "Редактирование блюд";
-                model.Products = await _productService.GetAll();
+                IEnumerable<Product> products = await _productService.GetAll();
+                var countItems = products.Count();
+                var items = products.Skip((model.PageModel.PageNumber - 1) * _pageSize).Take(_pageSize).ToList();
+                var pageModel = new PageViewModel(countItems, model.PageModel.PageNumber, _pageSize);
+                model.Products = items;
+                model.PageModel = pageModel;
                 IEnumerable<Category> categories = await _categoryService.GetAll();
                 ViewBag.Categories = new SelectList(categories, "Id", "CategoryName");
                 return View(model);

@@ -22,9 +22,15 @@
             <img src="../images/Restaurants/img1.jpg" data-slideshow="
                  @foreach(var item in Model.Restaurants)
                   {
-                     @string.Concat(item.Image, "|");
+                     if(item == Model.Restaurants[0])
+                     {
+                         @item.Image;
+                     } 
+                     else
+                     {
+                         @string.Concat( "|", item.Image);
+                     }  
                   }
-                 @*../images/Restaurants/img2.jpg|../images/Restaurants/img3.jpg|../images/Restaurants/img4.jpg|../images/Restaurants/img5.jpg|../images/Restaurants/img6.jpg|../images/Restaurants/img8.jpg*@
                  ">
         </div>
     </div>

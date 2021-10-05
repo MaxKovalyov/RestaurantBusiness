@@ -9,5 +9,6 @@ namespace RestaurantBusiness.App.ViewModels
         public List<Product> Products { get; set; }
         public Product Product { get; set; }
         public IFormFile File { get; set; }
+        public PageViewModel PageModel { get; set; }
     }
 }
