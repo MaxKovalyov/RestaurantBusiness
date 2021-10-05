@@ -91,7 +91,7 @@ function editTableOrder() {
     $('#form').find('#guests').val(guests);
     $('#form').find('#phone').val(phone);
     $('#form').find('#id').val(id);
-    CKEDITOR.instances['content'].setData(content);
+    CKEDITOR.instances['content-editor'].setData(content);
 }
 
 function removeTableOrder() {

@@ -5,6 +5,7 @@ using RestaurantBusiness.App.ViewModels;
 using RestaurantBusiness.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RestaurantBusiness.Controllers
@@ -14,25 +15,36 @@ namespace RestaurantBusiness.Controllers
         private readonly IOrderTableService _orderTableService;
         private readonly IRestaurantService _restaurantService;
 
+        private readonly int _pageSize = 5;
+
         public OrderTableController(IOrderTableService orderTableService, IRestaurantService restaurantService)
         {
             _orderTableService = orderTableService;
             _restaurantService = restaurantService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             ViewBag.Title = "Заказ столика";
+            IEnumerable<Restaurant> restaurants = await _restaurantService.GetAll();
+            ViewBag.Restaurants = new SelectList(restaurants, "Id", "Title");
             return View();
         }
 
         [Route("/Admin/OrderTable/EditOrders")]
-        public async Task<IActionResult> EditOrders()
+        public async Task<IActionResult> EditOrders(int page = 1)
         {
             ViewBag.Admin = true;
             ViewBag.Title = "Редактирование заказов столиков";
-            var model = new OrderTableViewModel();
-            model.TableOrders = await _orderTableService.GetAll();
+            IEnumerable<OrderTable> tableOrders = await _orderTableService.GetAll();
+            var countItems = tableOrders.Count();
+            var items = tableOrders.Skip((page - 1) * _pageSize).Take(_pageSize).ToList();
+            var pageModel = new PageViewModel(countItems, page, _pageSize);
+            var model = new OrderTableViewModel()
+            {
+                TableOrders = items,
+                PageModel = pageModel
+            };
             IEnumerable<Restaurant> restaurants = await _restaurantService.GetAll();
             ViewBag.Restaurants = new SelectList(restaurants, "Id", "Title");
             return View(model);
@@ -51,7 +63,12 @@ namespace RestaurantBusiness.Controllers
             {
                 ViewBag.Admin = true;
                 ViewBag.Title = "Редактирование заказов столиков";
-                model.TableOrders = await _orderTableService.GetAll();
+                IEnumerable<OrderTable> tableOrders = await _orderTableService.GetAll();
+                var countItems = tableOrders.Count();
+                var items = tableOrders.Take(_pageSize).ToList();
+                var pageModel = new PageViewModel(countItems, 1, _pageSize);
+                model.TableOrders = items;
+                model.PageModel = pageModel;
                 IEnumerable<Restaurant> restaurants = await _restaurantService.GetAll();
                 ViewBag.Restaurants = new SelectList(restaurants, "Id", "Title");
                 return View(model);
@@ -64,7 +81,7 @@ namespace RestaurantBusiness.Controllers
             if (ModelState.IsValid)
             {
                 await _orderTableService.AddAsync(model);
-                return Redirect("~/Admin/OrderTable/EditOrders");
+                return Redirect("~/OrderTable/Index");
             }
             else
             {

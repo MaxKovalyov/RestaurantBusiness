@@ -7,7 +7,6 @@ namespace RestaurantBusiness.Models
     public class OrderTable: BaseModel
     {
         [Display(Name = "Дата")]
-        [RegularExpression(@"^[0-9]{2}.[0-9]{2}.[0-9]{4}$", ErrorMessage = "Неверный формат даты (дд.мм.гггг)")]
         public DateTime Date { get; set; }
 
         [Display(Name = "Количество гостей")]
@@ -27,7 +26,8 @@ namespace RestaurantBusiness.Models
 
         [Display(Name = "Номер телефона клиента")]
         [Required(ErrorMessage = "Не введён номер телефона клиента")]
-        [RegularExpression(@"^[+]{1}[7]{1}[0-9]{9-11}$", ErrorMessage = "Неверный формат номера телефона (+7000000000)")]
+        [RegularExpression(@"^[0-9+() ]+$", ErrorMessage = "Недопустимые символы в номере телефона")]
+        [MaxLength(15, ErrorMessage = "Максимальная длина номера 15 символов")]
         public string ClientPhone { get; set; }
 
         [Display(Name = "Ресторан")]
