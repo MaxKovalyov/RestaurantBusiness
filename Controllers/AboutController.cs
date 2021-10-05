@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestaurantBusiness.App.Services;
 using RestaurantBusiness.App.ViewModels;
+using RestaurantBusiness.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RestaurantBusiness.Controllers
@@ -11,25 +14,45 @@ namespace RestaurantBusiness.Controllers
         private readonly IReviewService _reviewService;
         private readonly IRestaurantService _restaurantService;
 
+        private readonly int _restaurantPageSize = 4;
+        private readonly int _reviewPageSize = 5;
+
         public AboutController(IReviewService reviewService, IRestaurantService restaurantService)
         {
             _reviewService = reviewService;
             _restaurantService = restaurantService;
         }
 
-        public IActionResult Restaurants()
+        public async Task<IActionResult> Restaurants(int page = 1)
         {
+            IEnumerable<Restaurant> restaurants = await _restaurantService.GetAll();
+            var countItems = restaurants.Count();
+            var items = restaurants.Skip((page - 1) * _restaurantPageSize).Take(_restaurantPageSize).ToList();
+            var pageModel = new PageViewModel(countItems, page, _restaurantPageSize);
+            var model = new AboutRestaurantViewModel()
+            {
+                Restaurants = items,
+                PageModel = pageModel
+            };
             ViewBag.Title = "Рестораны";
-            return View();
+            return View(model);
         }
 
         [Route("/Admin/About/EditRestaurants")]
-        public async Task<IActionResult> EditRestaurants()
+        public async Task<IActionResult> EditRestaurants(int page = 1)
         {
             ViewBag.Admin = true;
             ViewBag.Title = "Редактирование ресторанов";
-            var model = new RestaurantViewModel();
-            model.Restaurants = await _restaurantService.GetAll();
+            IEnumerable<Restaurant> restaurants = await _restaurantService.GetAll();
+            var countItems = restaurants.Count();
+            var items = restaurants.Skip((page - 1) * _restaurantPageSize).Take(_restaurantPageSize).ToList();
+            var pageModel = new PageViewModel(countItems, page, _restaurantPageSize);
+            var model = new RestaurantViewModel()
+            {
+                Restaurants = items,
+                PageModel = pageModel
+            };
+
             return View(model);
         }
 
@@ -53,7 +76,14 @@ namespace RestaurantBusiness.Controllers
             {
                 ViewBag.Admin = true;
                 ViewBag.Title = "Редактирование ресторанов";
-                model.Restaurants = await _restaurantService.GetAll();
+                ViewBag.Admin = true;
+                ViewBag.Title = "Редактирование ресторанов";
+                IEnumerable<Restaurant> restaurants = await _restaurantService.GetAll();
+                var countItems = restaurants.Count();
+                var items = restaurants.Skip((model.PageModel.PageNumber - 1) * _restaurantPageSize).Take(_restaurantPageSize).ToList();
+                var pageModel = new PageViewModel(countItems, model.PageModel.PageNumber, _restaurantPageSize);
+                model.Restaurants = items;
+                model.PageModel = pageModel;
                 return View(model);
             }
         }

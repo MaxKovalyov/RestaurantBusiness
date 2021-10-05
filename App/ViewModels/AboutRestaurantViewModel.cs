@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using RestaurantBusiness.Models;
+﻿using RestaurantBusiness.Models;
 using System.Collections.Generic;
 
 namespace RestaurantBusiness.App.ViewModels
 {
-    public class RestaurantViewModel
+    public class AboutRestaurantViewModel
     {
         public List<Restaurant> Restaurants { get; set; }
-
-        public Restaurant Restaurant { get; set; }
-
-        public IFormFile File { get; set; }
 
         public PageViewModel PageModel { get; set; }
     }

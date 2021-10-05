@@ -1,50 +1,111 @@
-﻿<section id="restaurants">
+﻿@model AboutRestaurantViewModel
+<section id="restaurants">
     <div class="container">
         <div class="row text-center">
             <h2>Наши рестораны</h2>
         </div>
-        <div class="items text-center">
-            <div class="one-item col-2">
-                <div class="item">
-                    <img src="~/images/Restaurants/img1.jpg" alt="">
-                    <h3>Ресторан "Мрия"</h3>
-                    <p>Адрес: г. Москва, ул. Дурова, д.14</p>
+        <div class="restaurant-grid">
+            @foreach (var item in Model.Restaurants)
+            {
+                <div class="item text-center">
+                    <img src="@item.Image" alt="@item.Title">
+                    <h3>@item.Title</h3>
+                    <p>@item.Adress</p>
                 </div>
-            </div>
-            <div class="one-item col-2">
-                <div class="item">
-                    <img src="~/images/Restaurants/img6.jpg" alt="">
-                    <h3>Ресторан "Бонжур"</h3>
-                    <p>Адрес: г. Москва, ул. Орджоникидзе, д.1</p>
-                </div>
-            </div>
-        </div>
-        <div class="items text-center">
-            <div class="one-item col-2">
-                <div class="item">
-                    <img src="~/images/Restaurants/img2.jpg" alt="">
-                    <h3>Ресторан "Алькабарено"</h3>
-                    <p>Адрес: г. Москва, ул. Тимура Фрунзе, д.22с4</p>
-                </div>
-            </div>
-            <div class="one-item col-2">
-                <div class="item">
-                    <img src="~/images/Restaurants/img3.jpg" alt="">
-                    <h3>Ресторан "Пиколлино"</h3>
-                    <p>Адрес: г. Москва, Москва-Сити</p>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>
 <section class="paginator">
     <div class="container">
         <div class="text-center">
-            <a class="active" href="">1</a>
-            <a href="">2</a>
-            <span>...</span>
-            <a href="">9</a>
-            <a href="">10</a>
+            @if (Model.PageModel.PageNumber == 1)
+            {
+                if (Model.PageModel.TotalPages > 2)
+                {
+                    <a class="active">1</a>
+                    <a asp-action="Restaurants" asp-route-page="2">2</a>
+                    <span>...</span>
+                    <a asp-action="Restaurants" asp-route-page="@Model.PageModel.TotalPages">@Model.PageModel.TotalPages</a>
+                }
+                else
+                {
+                    if (Model.PageModel.TotalPages == 2)
+                    {
+                        <a class="active">1</a>
+                        <a asp-action="Restaurants" asp-route-page="2">2</a>
+                    }
+                    else
+                    {
+                        if (Model.PageModel.TotalPages == 1)
+                        {
+                            <a class="active">1</a>
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (Model.PageModel.PageNumber == 2)
+                {
+                    if (Model.PageModel.TotalPages > 3)
+                    {
+                        <a asp-action="Restaurants" asp-route-page="1">1</a>
+                        <a class="active">2</a>
+                        <a asp-action="Restaurants" asp-route-page="3">3</a>
+                        <span>...</span>
+                        <a asp-action="Restaurants" asp-route-page="@Model.PageModel.TotalPages">@Model.PageModel.TotalPages</a>
+                    }
+                    else
+                    {
+                        if (Model.PageModel.TotalPages == 3)
+                        {
+                            <a asp-action="Restaurants" asp-route-page="1">1</a>
+                            <a class="active">2</a>
+                            <a asp-action="Restaurants" asp-route-page="3">3</a>
+                        }
+                        else
+                        {
+                            if (Model.PageModel.TotalPages == 2)
+                            {
+                                <a asp-action="Restaurants" asp-route-page="1">1</a>
+                                <a class="active">2</a>
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (Model.PageModel.PageNumber == Model.PageModel.TotalPages - 1)
+                    {
+                        <a asp-action="Restaurants" asp-route-page="1">1</a>
+                        <span>...</span>
+                        <a asp-action="Restaurants" asp-route-page="@(Model.PageModel.PageNumber-1)">@(Model.PageModel.PageNumber-1)</a>
+                        <a asp-action="Restaurants" asp-route-page="@Model.PageModel.PageNumber">@Model.PageModel.PageNumber</a>
+                        <a asp-action="Restaurants" asp-route-page="@Model.PageModel.TotalPages">@Model.PageModel.TotalPages</a>
+                    }
+                    else
+                    {
+                        if (Model.PageModel.PageNumber == Model.PageModel.TotalPages)
+                        {
+                            <a asp-action="Restaurants" asp-route-page="1">1</a>
+                            <span>...</span>
+                            <a asp-action="Restaurants" asp-route-page="@(Model.PageModel.PageNumber-1)">@(Model.PageModel.PageNumber-1)</a>
+                            <a asp-action="Restaurants" asp-route-page="@Model.PageModel.PageNumber">@Model.PageModel.PageNumber</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Restaurants" asp-route-page="1">1</a>
+                            <span>...</span>
+                            <a asp-action="Restaurants" asp-route-page="@(Model.PageModel.PageNumber-1)">@(Model.PageModel.PageNumber-1)</a>
+                            <a asp-action="Restaurants" asp-route-page="@Model.PageModel.PageNumber">@Model.PageModel.PageNumber</a>
+                            <a asp-action="Restaurants" asp-route-page="@(Model.PageModel.PageNumber+1)">@(Model.PageModel.PageNumber+1)</a>
+                            <span>...</span>
+                            <a asp-action="Restaurants" asp-route-page="@Model.PageModel.PageNumber">@Model.PageModel.PageNumber</a>
+                        }
+                    }
+                }
+            }
         </div>
     </div>
 </section>
