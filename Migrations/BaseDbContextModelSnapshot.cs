@@ -84,8 +84,8 @@ namespace RestaurantBusiness.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<decimal>("CostEvent")
-                        .HasColumnType("decimal(18,4)");
+                    b.Property<int>("CostEvent")
+                        .HasColumnType("int");
 
                     b.Property<int>("CountGuest")
                         .HasColumnType("int");
@@ -148,8 +148,8 @@ namespace RestaurantBusiness.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,4)");
+                    b.Property<int>("Cost")
+                        .HasColumnType("int");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");

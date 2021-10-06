@@ -68,7 +68,7 @@ namespace RestaurantBusiness.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Cost = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    Cost = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -93,7 +93,7 @@ namespace RestaurantBusiness.Migrations
                     ClientName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     ClientPhone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     RestaurantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CostEvent = table.Column<decimal>(type: "decimal(18,4)", nullable: false)
+                    CostEvent = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

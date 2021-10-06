@@ -9,10 +9,10 @@ namespace RestaurantBusiness.App.Services
 {
     public class OrderEventService: IOrderEventService
     {
-        private readonly IRepository<OrderEvent> _repository;
+        private readonly IOrderRepository _repository;
         private readonly IEventProductsService _eventProductsService;
 
-        public OrderEventService(IRepository<OrderEvent> repository, IEventProductsService eventProductsService)
+        public OrderEventService(IOrderRepository repository, IEventProductsService eventProductsService)
         {
             _repository = repository;
             _eventProductsService = eventProductsService;
@@ -21,7 +21,8 @@ namespace RestaurantBusiness.App.Services
         public async Task AddAsync(OrderEvent model, List<Guid> OrderedProducts)
         {
             model.Id = new Guid();
-            foreach(var item in OrderedProducts)
+            await _repository.AddAsync(model);
+            foreach (var item in OrderedProducts)
             {
                 var eventProduct = new EventProducts()
                 {
@@ -29,9 +30,7 @@ namespace RestaurantBusiness.App.Services
                     ProductId = item
                 };
                 await _eventProductsService.AddAsync(eventProduct);
-                model.EventProducts.Add(eventProduct);
             }
-            await _repository.AddAsync(model);
             
         }
 
@@ -75,11 +74,10 @@ namespace RestaurantBusiness.App.Services
             {
                 var eventProduct = new EventProducts()
                 {
-                    EventId = model.Id,
+                    EventId = orderEvent.Id,
                     ProductId = item
                 };
                 await _eventProductsService.AddAsync(eventProduct);
-                model.EventProducts.Add(eventProduct);
             }
 
             orderEvent.ClientName = model.ClientName;
@@ -89,7 +87,6 @@ namespace RestaurantBusiness.App.Services
             orderEvent.Description = model.Description;
             orderEvent.RestaurantId = model.RestaurantId;
             orderEvent.CostEvent = model.CostEvent;
-            orderEvent.EventProducts = model.EventProducts;
 
             await _repository.UpdateAsync(orderEvent);
         }

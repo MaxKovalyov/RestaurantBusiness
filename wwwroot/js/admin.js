@@ -108,7 +108,7 @@ function addProductItem(id, img, title, cost) {
         '<td id="product-title">'+title+'</td>'+
         '<td class="product-cost" id="product-cost">'+cost+'</td>' +
         '<td class="product-id hide" id="product-id">'+
-            '<input type="hidden" asp-for="OrderedProducts" value="' + id + '">' +
+            '<input type="hidden" name="OrderedProducts" value="' + id + '">' +
         '</td>' +
         '<td><a onclick="removeProductOrder.call(this)">Удалить</a></td>'
     );
@@ -155,6 +155,8 @@ function editEventOrder() {
 }
 
 function removeEventOrder() {
+    let id = $(this).parent().parent().find('#id').text();
+    $.get('DeleteOrder', { id: id });
     $(this).parent().parent().remove();
 }
 
@@ -165,24 +167,10 @@ function addProductOrder() {
     let cost = $(element).find("#product-cost").text();
     let id = $(element).find("#product-id").text();
     addProductItem(id, img, title, cost);
-    $(element).remove();
 }
 
 function removeProductOrder() {
     let element = $(this).parent().parent();
-    let img = $(element).find("img").attr('src');
-    let title = $(element).find("#product-title").text();
-    let cost = $(element).find("#product-cost").text();
-    let id = $(element).find("#product-id").text();
-    let newTr = document.createElement("tr");
-    $(newTr).html(
-        '<td id="product-img">'+'<img src="'+img+'" alt="">'+'</td>'+
-        '<td id="product-title">'+title+'</td>'+
-        '<td id="product-cost">' + cost + '</td>' +
-        '<td id="product-id" class="hide">'+id+'</td>' +
-        '<td><a onclick="addProductOrder.call(this)">Добавить</a></td>'
-    );
-    $('#hide-list').find('table').append(newTr);
     $(element).remove();
     costCalculation();
 }

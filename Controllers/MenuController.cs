@@ -26,12 +26,8 @@ namespace RestaurantBusiness.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Title = "Меню";
-            var model = new MenuViewModel()
-            {
-                Categories = await _categoryService.GetAll(),
-                Products = await _productService.GetAll()
-            };
-            return View(model);
+            var menu = await _categoryService.GetAll();
+            return View(menu);
         }
 
         [HttpPost]

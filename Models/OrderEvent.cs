@@ -40,7 +40,7 @@ namespace RestaurantBusiness.Models
         public Restaurant Restaurant { get; set; }
 
         [Display(Name = "Стоимость мероприятия")]
-        public decimal CostEvent { get; set; }
+        public int CostEvent { get; set; }
 
         public ICollection<EventProducts> EventProducts { get; set; }
     }

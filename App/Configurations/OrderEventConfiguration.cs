@@ -20,9 +20,6 @@ namespace RestaurantBusiness.App.Configurations
                 .HasForeignKey(ep => ep.EventId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_OrderEvent_OrderProducts");
-
-            builder.Property(oe => oe.CostEvent)
-                .HasColumnType("decimal(18,4)");
         }
     }
 }

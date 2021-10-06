@@ -36,7 +36,10 @@ namespace RestaurantBusiness.App.Services
 
         public async Task<List<Category>> GetAll()
         {
-            var result = await _repository.GetAll().ToListAsync();
+            var result = await _repository
+                .GetAll()
+                .Include(c => c.Products)
+                .ToListAsync();
 
             return result.Count > 0 ? result : new List<Category>();
         }

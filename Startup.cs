@@ -28,6 +28,7 @@ namespace RestaurantBusiness
             services.AddScoped<DbContext>(s => s.GetRequiredService<BaseDbContext>());
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<IReviewService, ReviewService>();

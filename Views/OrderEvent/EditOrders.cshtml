@@ -47,7 +47,7 @@
                 <label asp-for="OrderEvent.CountGuest"></label>
             </div>
             <div class="col-6">
-                <input required id="guests" type="text" asp-for="OrderEvent.CountGuest">
+                <input required id="guests" type="text" asp-for="OrderEvent.CountGuest" onblur="costCalculation()">
                 <span asp-validation-for="OrderEvent.CountGuest" class="error"></span>
             </div>
         </div>
@@ -56,7 +56,7 @@
                 <label asp-for="OrderEvent.CostEvent"></label>
             </div>
             <div class="col-6">
-                <input required id="cost" type="text" asp-for="OrderEvent.CostEvent" disabled value="0">
+                <input required id="cost" type="text" asp-for="OrderEvent.CostEvent" readonly="readonly">
             </div>
         </div>
         <div class="row">
@@ -126,7 +126,7 @@
                 @foreach (var item in Model.EventOrders)
                 {
                     <tr>
-                        <td id="restaurant">@item.Restaurant.Title</td>
+                        <td id="restaurant-name">@item.Restaurant.Title</td>
                         <td id="date">@item.Date</td>
                         <td id="fio">@item.ClientName</td>
                         <td id="phone">@item.ClientPhone</td>
@@ -135,6 +135,8 @@
                         <td><a onclick="editEventOrder.call(this)">Изменить</a></td>
                         <td><a onclick="removeEventOrder.call(this)">Удалить</a></td>
                         <td id="content" class="hide">@item.Description</td>
+                        <td id="id" class="hide">@item.Id</td>
+                        <td id="restaurant" class="hide">@item.RestaurantId</td>
                         <td id="products" class="hide">
                             <table>
                                 @foreach (var product in item.EventProducts)

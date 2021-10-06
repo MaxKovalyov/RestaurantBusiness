@@ -15,11 +15,11 @@ namespace RestaurantBusiness.Models
 
         public string Image { get; set; }
 
-        [RegularExpression(@"^[0-9]+[,]{1}[0-9]+$", ErrorMessage = "Неверный формат вещественного числа (xxx,xxx)")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Недопустимые символы в числе")]
         [Range(0, 999999, ErrorMessage = "Стоимость не может быть отрицательной или превышать 999999")]
         [Display(Name = "Стоимость блюда, ₽")]
         [Required(ErrorMessage = "Стоимость блюда не введена")]
-        public decimal Cost { get; set; }
+        public int Cost { get; set; }
 
         [Required(ErrorMessage = "Категория не выбрана")]
         [Display(Name = "Категория блюда")]

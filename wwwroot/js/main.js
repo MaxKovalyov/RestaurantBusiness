@@ -57,7 +57,7 @@ function addProduct() {
             '<p id="cost-product" class="cost-product">'+cost+'</p>'+
         '</div>' +
         '<div class="hide">' +
-            '<input id="id" type="hidden" asp-for="OrderedProducts" value="'+id+'">' +
+            '<input id="id" type="hidden" name="OrderedProducts" value="'+id+'">' +
         '</div>' +
         '<div class="one-item text-center product-remove-btn">'+
             '<a class="button-remove" id="remove-product" onclick="removeProduct.call(this)"><i class="fa fa-close"></i></a>'+
@@ -109,6 +109,6 @@ function costCalculation() {
     });
 
     let costEvent = costProducts * numberGuests;
-    $("#cost").val(costEvent);
+    $("#cost").attr('value', costEvent);
 }
     
