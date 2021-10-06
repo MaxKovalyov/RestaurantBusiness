@@ -100,19 +100,16 @@ function removeTableOrder() {
     $(this).parent().parent().remove();
 }
 
-function addProductItem(img, title, cost) {
+function addProductItem(id, img, title, cost) {
     let newTr = document.createElement("tr");
     $(newTr).html(
         '<td id="product-img">'+
-            '<img src="'+img+'" alt="">'+
-            '<input type="hidden" name="product-img" value="'+img+'">'+
-        '</td>'+
-        '<td id="product-title">'+title+
-            '<input type="hidden" name="product-title" value="'+title+'">'+
-        '</td>'+
-        '<td class="product-cost" id="product-cost">'+cost+
-            '<input type="hidden" name="product-cost" value="'+cost+'">'+
-        '</td>'+
+            '<img src="'+img+'" alt=""></td>'+
+        '<td id="product-title">'+title+'</td>'+
+        '<td class="product-cost" id="product-cost">'+cost+'</td>' +
+        '<td class="product-id hide" id="product-id">'+
+            '<input type="hidden" asp-for="OrderedProducts" value="' + id + '">' +
+        '</td>' +
         '<td><a onclick="removeProductOrder.call(this)">Удалить</a></td>'
     );
     $('#product-list').find('tbody').append(newTr);
@@ -130,7 +127,8 @@ function editEventOrder() {
     let guests = $(element).find('#guests').text();
     let phone = $(element).find('#phone').text();
     let content = $(element).find('#content').text();
-    let product_images = [], product_titles = [], product_costs = [];
+    let id = $(element).find('#id').text();
+    let product_images = [], product_titles = [], product_costs = [], product_id = [];
     $(element).find("img").each(function(i, elem) {
         product_images[i] = $(elem).attr('src');
     });
@@ -140,16 +138,20 @@ function editEventOrder() {
     $(element).find(".product-cost").each(function(i, elem) {
         product_costs[i] = $(elem).text();
     });
+    $(element).find(".product-id").each(function (i, elem) {
+        product_id[i] = $(elem).text();
+    });
     for(let i = 0; i < product_titles.length; i++) {
-        addProductItem(product_images[i], product_titles[i], product_costs[i]);
+        addProductItem(product_id[i], product_images[i], product_titles[i], product_costs[i]);
     }
     $('#form').find('#date').val(date);
     $('#form').find('#restaurant').val(restaurant);
     $('#form').find('#fio').val(fio);
     $('#form').find('#guests').val(guests);
     $('#form').find('#phone').val(phone);
-    CKEDITOR.instances['content'].setData(content);
-    costCalculation()
+    $('#form').find('#id').val(id);
+    CKEDITOR.instances['content-editor'].setData(content);
+    costCalculation();
 }
 
 function removeEventOrder() {
@@ -161,7 +163,8 @@ function addProductOrder() {
     let img = $(element).find("img").attr('src');
     let title = $(element).find("#product-title").text();
     let cost = $(element).find("#product-cost").text();
-    addProductItem(img, title, cost);
+    let id = $(element).find("#product-id").text();
+    addProductItem(id, img, title, cost);
     $(element).remove();
 }
 
@@ -170,11 +173,13 @@ function removeProductOrder() {
     let img = $(element).find("img").attr('src');
     let title = $(element).find("#product-title").text();
     let cost = $(element).find("#product-cost").text();
+    let id = $(element).find("#product-id").text();
     let newTr = document.createElement("tr");
     $(newTr).html(
         '<td id="product-img">'+'<img src="'+img+'" alt="">'+'</td>'+
         '<td id="product-title">'+title+'</td>'+
-        '<td id="product-cost">'+cost+'</td>'+
+        '<td id="product-cost">' + cost + '</td>' +
+        '<td id="product-id" class="hide">'+id+'</td>' +
         '<td><a onclick="addProductOrder.call(this)">Добавить</a></td>'
     );
     $('#hide-list').find('table').append(newTr);

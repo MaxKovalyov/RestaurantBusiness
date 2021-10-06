@@ -43,21 +43,22 @@ function addProduct() {
     let img = $(element).find("img").attr('src');
     let title = $(element).find("#title").text();
     let cost = $(element).find("#cost-product-hide").text();
+    let id = $(element).find("#id").text();
     let newDiv = document.createElement("div");
     $(newDiv).addClass("col-md-12 in-row");
     $(newDiv).html(
         '<div class="one-item min-product-img">'+
             '<img src="'+img+'" alt="">'+
-            '<input type="hidden" name="img" value="'+img+'">'+
         '</div>'+
         '<div class="one-item product-description">'+
             '<p id="title">'+title+'</p>'+
-            '<input type="hidden" name="title" value="'+title+'">'+
         '</div>'+
         '<div class="one-item text-center product-cost-min">'+
             '<p id="cost-product" class="cost-product">'+cost+'</p>'+
-            '<input type="hidden" name="cost" value="'+cost+'">'+
-        '</div>'+
+        '</div>' +
+        '<div class="hide">' +
+            '<input id="id" type="hidden" asp-for="OrderedProducts" value="'+id+'">' +
+        '</div>' +
         '<div class="one-item text-center product-remove-btn">'+
             '<a class="button-remove" id="remove-product" onclick="removeProduct.call(this)"><i class="fa fa-close"></i></a>'+
         '</div>'
@@ -72,6 +73,7 @@ function removeProduct() {
     let img = $(element).find("img").attr('src');
     let title = $(element).find("#title").text();
     let cost = $(element).find("#cost-product").text();
+    let id = $(element).find("#id").text();
     let newDiv = document.createElement("div");
     $(newDiv).addClass("col-md-12 in-row");
     $(newDiv).html(
@@ -83,7 +85,10 @@ function removeProduct() {
         '</div>'+
         '<div class="one-item text-center product-cost-min">'+
             '<p id="cost-product-hide">'+cost+'</p>'+
-        '</div>'+
+        '</div>' +
+        '<div class="hide">' +
+            '<p id="id">' + id + '</p>' +
+        '</div>' +
         '<div class="one-item text-center product-remove-btn">'+
             '<a class="button-add" id="remove-product" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>'+
         '</div>'

@@ -50,6 +50,12 @@ namespace RestaurantBusiness.App.Services
                 throw new Exception("Update: Заказ столика не найден");
             }
 
+            orderTable.ClientName = model.ClientName;
+            orderTable.ClientPhone = model.ClientPhone;
+            orderTable.CountGuest = model.CountGuest;
+            orderTable.Date = model.Date;
+            orderTable.Description = model.Description;
+            orderTable.RestaurantId = model.RestaurantId;
 
             await _repository.UpdateAsync(orderTable);
         }

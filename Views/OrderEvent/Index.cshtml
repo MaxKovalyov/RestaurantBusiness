@@ -1,126 +1,66 @@
-﻿<section id="form-event">
+﻿@model OrderEventViewModel
+<section id="form-event">
     <div class="container">
-        <form action="/" method="POST" class="form-table">
+        <form asp-action="Index" method="post" class="form-table">
             <h3>Заполните форму</h3>
             <div class="row-form">
                 <div class="col-md-12">
-                    <select class="input-select" name="restaurant" id="restaurant">
+                    <select class="input-select" asp-for="OrderEvent.RestaurantId" asp-items="ViewBag.Restaurants" id="restaurant">
                         <option disabled selected>Выберите ресторан</option>
-                        <option value="Мрия">Мрия г. Москва, ул. Дурова, д.14</option>
-                        <option value="Бонжур">Бонжур г. Москва, ул. Орджоникидзе, д.1</option>
-                        <option value="Пиколлино">Пиколлино г. Москва, Москва-Сити</option>
-                        <option value="Алькабарено">Алькабарено г. Москва, ул. Тимура Фрунзе, д.22с4</option>
                     </select>
+                    <span asp-validation-for="OrderEvent.RestaurantId" class="error"></span>
                 </div>
                 <div class="col-md-6">
-                    <input required placeholder="ФИО" type="text" class="input-text" name="fio">
+                    <input required placeholder="ФИО" type="text" class="input-text" asp-for="OrderEvent.ClientName">
+                    <span asp-validation-for="OrderEvent.ClientName" class="error"></span>
                 </div>
                 <div class="col-md-6">
-                    <input required placeholder="Телефон" type="text" class="input-text" name="phone">
+                    <input required placeholder="Телефон" type="text" class="input-text" asp-for="OrderEvent.ClientPhone">
+                    <span asp-validation-for="OrderEvent.ClientPhone" class="error"></span>
                 </div>
                 <div class="col-md-6">
-                    <input required placeholder="Количество гостей" type="text" class="input-text" name="guests" id="guests" onblur="costCalculation()">
+                    <input required placeholder="Количество гостей" type="text" class="input-text" id="guests" asp-for="OrderEvent.CountGuest" onblur="costCalculation()">
+                    <span asp-validation-for="OrderEvent.CountGuest" class="error"></span>
                 </div>
                 <div class="col-md-6">
-                    <input required placeholder="Желаемая дата" type="date" class="input-text" name="date">
+                    <input required placeholder="Желаемая дата" type="date" class="input-text" asp-for="OrderEvent.Date">
+                    <span asp-validation-for="OrderEvent.Date" class="error"></span>
                 </div>
                 <div class="col-md-12">
-                    <textarea required placeholder="Подробное описание мероприятия и пожелания" name="description" cols="40" rows="5" class="input-textarea"></textarea>
+                    <textarea placeholder="Точное время и подробности о заказе" asp-for="OrderEvent.Description" cols="40" rows="5" class="input-textarea"></textarea>
                 </div>
                 <div class="col-md-6 text-center">
                     <p class="label-cost">Стоимость мероприятия:</p>
                 </div>
                 <div class="col-md-6">
-                    <input class="input-text" name="cost-event" id="cost" type="text" disabled value="0">
+                    <input class="input-text" asp-for="OrderEvent.CostEvent" id="cost" type="text" disabled value="0">
+                    <span asp-validation-for="OrderEvent.CostEvent" class="error"></span>
                 </div>
+                <input id="id" type="hidden" asp-for="OrderEvent.Id" value="11111111-1111-1111-1111-111111111111">
                 <div class="col-md-12 in-row">
                     <h4>Список блюд</h4>
                     <a class="button button-show-list" id="show-product" onclick="showList()">Добавить блюдо</a>
                     <div class="hide-list-products" id="hide-list">
-                        <div class="col-md-12 in-row">
-                            <div class="one-item min-product-img">
-                                <img src="/images/Products/first1.jpg" alt="">
+                        @foreach (var item in Model.Products)
+                        {
+                            <div class="col-md-12 in-row">
+                                <div class="one-item min-product-img">
+                                    <img src="@item.Image" alt="">
+                                </div>
+                                <div class="one-item product-description">
+                                    <p id="title">@item.Title</p>
+                                </div>
+                                <div class="one-item text-center product-cost-min">
+                                    <p id="cost-product-hide">@item.Cost</p>
+                                </div>
+                                <div class="hide">
+                                    <p id="id">@item.Id</p>
+                                </div>
+                                <div class="one-item text-center product-remove-btn">
+                                    <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
+                                </div>
                             </div>
-                            <div class="one-item product-description">
-                                <p id="title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</p>
-                            </div>
-                            <div class="one-item text-center product-cost-min">
-                                <p id="cost-product-hide">650</p>
-                            </div>
-                            <div class="one-item text-center product-remove-btn">
-                                <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-md-12 in-row">
-                            <div class="one-item min-product-img">
-                                <img src="/images/Products/second2.jpg" alt="">
-                            </div>
-                            <div class="one-item product-description">
-                                <p id="title">Вителло тоннато</p>
-                            </div>
-                            <div class="one-item text-center product-cost-min">
-                                <p id="cost-product-hide">1200</p>
-                            </div>
-                            <div class="one-item text-center product-remove-btn">
-                                <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-md-12 in-row">
-                            <div class="one-item min-product-img">
-                                <img src="/images/Products/first1.jpg" alt="">
-                            </div>
-                            <div class="one-item product-description">
-                                <p id="title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</p>
-                            </div>
-                            <div class="one-item text-center product-cost-min">
-                                <p id="cost-product-hide">650</p>
-                            </div>
-                            <div class="one-item text-center product-remove-btn">
-                                <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-md-12 in-row">
-                            <div class="one-item min-product-img">
-                                <img src="/images/Products/second2.jpg" alt="">
-                            </div>
-                            <div class="one-item product-description">
-                                <p id="title">Вителло тоннато</p>
-                            </div>
-                            <div class="one-item text-center product-cost-min">
-                                <p id="cost-product-hide">1200</p>
-                            </div>
-                            <div class="one-item text-center product-remove-btn">
-                                <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-md-12 in-row">
-                            <div class="one-item min-product-img">
-                                <img src="/images/Products/first1.jpg" alt="">
-                            </div>
-                            <div class="one-item product-description">
-                                <p id="title">Суп-пюре из зелённого гороха с мятой, шпинатом и домашней рикоттой</p>
-                            </div>
-                            <div class="one-item text-center product-cost-min">
-                                <p id="cost-product-hide">650</p>
-                            </div>
-                            <div class="one-item text-center product-remove-btn">
-                                <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-md-12 in-row">
-                            <div class="one-item min-product-img">
-                                <img src="/images/Products/second2.jpg" alt="">
-                            </div>
-                            <div class="one-item product-description">
-                                <p id="title">Вителло тоннато</p>
-                            </div>
-                            <div class="one-item text-center product-cost-min">
-                                <p id="cost-product-hide">1200</p>
-                            </div>
-                            <div class="one-item text-center product-remove-btn">
-                                <a class="button-add" onclick="addProduct.call(this)"><i class="fa fa-plus"></i></a>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
                 <div id="product-list"></div>
