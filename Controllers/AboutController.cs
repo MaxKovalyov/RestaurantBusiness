@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RestaurantBusiness.App.Services;
 using RestaurantBusiness.App.ViewModels;
 using RestaurantBusiness.Models;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantBusiness.Controllers
 {
+    [Authorize]
     public class AboutController : Controller
     {
         private readonly IReviewService _reviewService;
@@ -23,6 +25,7 @@ namespace RestaurantBusiness.Controllers
             _restaurantService = restaurantService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Restaurants(int page = 1)
         {
             IEnumerable<Restaurant> restaurants = await _restaurantService.GetAll();
@@ -93,30 +96,35 @@ namespace RestaurantBusiness.Controllers
             await _restaurantService.DeleteAsync(id);
         }
 
+        [AllowAnonymous]
         public IActionResult Service()
         {
             ViewBag.Title = "Обслуживание";
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Contact()
         {
             ViewBag.Title = "Контакты";
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Awards()
         {
             ViewBag.Title = "Награды";
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Staff()
         {
             ViewBag.Title = "Персонал";
             return View();
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Reviews(int page = 1)
         {
             ViewBag.Title = "Отзывы";
@@ -150,6 +158,7 @@ namespace RestaurantBusiness.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Reviews(ReviewViewModel model)
         {

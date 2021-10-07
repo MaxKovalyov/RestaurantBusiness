@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RestaurantBusiness.App.Services;
 using RestaurantBusiness.App.ViewModels;
 using RestaurantBusiness.Models;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantBusiness.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly INewsService _newsService;
@@ -22,6 +24,7 @@ namespace RestaurantBusiness.Controllers
             _restaurantService = restaurantService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index(int page=1)
         {
             IEnumerable<News> news = await _newsService.GetAll();

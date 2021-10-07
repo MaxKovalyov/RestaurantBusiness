@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RestaurantBusiness.App.Services;
 using RestaurantBusiness.App.ViewModels;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantBusiness.Controllers
 {
+    [Authorize]
     public class MenuController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -23,6 +25,7 @@ namespace RestaurantBusiness.Controllers
             _productService = productService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             ViewBag.Title = "Меню";

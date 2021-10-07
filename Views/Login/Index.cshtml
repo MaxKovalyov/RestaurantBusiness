@@ -1,0 +1,32 @@
+﻿@model LoginModel
+<section>
+    <div class="container">
+        <form asp-action="Index" method="post">
+            <div class="row error" asp-validation-summary="ModelOnly"></div>
+            <div class="row">
+                <h3>Авторизация админа</h3>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <label asp-for="Login"></label>
+                </div>
+                <div class="col-6">
+                    <input id="login" asp-for="Login" type="text">
+                    <span asp-validation-for="Login" class="error"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <label asp-for="Password"></label>
+                </div>
+                <div class="col-6">
+                    <input id="login" asp-for="Password" type="password">
+                    <span asp-validation-for="Password" class="error"></span>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" name="submit">Отправить</button>
+            </div>
+        </form>
+    </div>
+</section>

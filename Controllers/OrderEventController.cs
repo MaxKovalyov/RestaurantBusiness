@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RestaurantBusiness.App.Services;
 using RestaurantBusiness.App.ViewModels;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantBusiness.Controllers
 {
+    [Authorize]
     public class OrderEventController : Controller
     {
         private readonly IOrderEventService _orderEventService;
@@ -71,6 +73,7 @@ namespace RestaurantBusiness.Controllers
             }
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             ViewBag.Title = "Заказ мероприятия";
@@ -83,6 +86,7 @@ namespace RestaurantBusiness.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Index(OrderEventViewModel model)
         {

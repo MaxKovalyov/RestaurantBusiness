@@ -783,6 +783,10 @@ h2::after {
     display: block;
 }
 
+.red {
+    color: red !important;
+}
+
  
 
 
