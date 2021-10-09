@@ -27,7 +27,7 @@ namespace RestaurantBusiness.Models
         [Display(Name = "Номер телефона клиента")]
         [Required(ErrorMessage = "Не введён номер телефона клиента")]
         [RegularExpression(@"^[0-9+() ]+$", ErrorMessage = "Недопустимые символы в номере телефона")]
-        [Range(8, 15, ErrorMessage = "Длина номера от 8 до 15 цифр")]
+        [StringLength(15, MinimumLength = 8, ErrorMessage = "Длина номера от 8 до 15 цифр")]
         public string ClientPhone { get; set; }
 
         [Display(Name = "Ресторан")]

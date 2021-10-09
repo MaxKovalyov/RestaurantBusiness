@@ -14,7 +14,7 @@ namespace RestaurantBusiness.App.Configurations
 
             builder.HasOne(ep => ep.Product);
 
-            builder.HasNoKey();
+            builder.HasKey(ep => new { ep.EventId, ep.ProductId });
 
         }
     }
